@@ -711,7 +711,7 @@ export default function Home() {
               </div>
               <div className="space-y-4">
                 <div className="inline-block rounded-lg bg-red-900/20 px-4 py-2 text-lg font-semibold text-red-500">
-                  2024년 8월 초 오픈 예정
+                  2025년 8월 초 오픈 예정
                 </div>
                 <h2 className="text-4xl font-bold tracking-tighter sm:text-6xl lg:text-7xl text-white">
                   <span className="bg-gradient-to-r from-red-500 to-red-300 bg-clip-text text-transparent">
