@@ -10,6 +10,8 @@ import {
   Star,
   Rocket,
   Instagram,
+  Menu,
+  X,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -318,6 +320,7 @@ function getRandomImages(images: string[], count: number): string[] {
 
 export default function Home() {
   const [randomAsanas, setRandomAsanas] = useState<string[]>([]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // 컴포넌트 마운트 시 랜덤으로 24개 이미지 선택
@@ -336,7 +339,9 @@ export default function Home() {
               height={120}
             />
           </div>
-          <nav className="flex gap-6">
+
+          {/* 데스크탑 네비게이션 */}
+          <nav className="hidden md:flex gap-6">
             <Link
               href="#asanas"
               className="text-sm font-medium text-zinc-400 transition-colors hover:text-red-500"
@@ -350,7 +355,7 @@ export default function Home() {
               기록
             </Link>
             <Link
-              href="#studio-search"
+              href="#practice-record"
               className="text-sm font-medium text-zinc-400 transition-colors hover:text-red-500"
             >
               요가원
@@ -374,7 +379,70 @@ export default function Home() {
               준비중
             </Link>
           </nav>
+
+          {/* 모바일 햄버거 메뉴 버튼 */}
+          <button
+            className="md:hidden p-2 text-zinc-400 hover:text-red-500 transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="메뉴 토글"
+          >
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </button>
         </div>
+
+        {/* 모바일 메뉴 */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t border-zinc-800 bg-black">
+            <nav className="container py-4 flex flex-col space-y-4">
+              <Link
+                href="#asanas"
+                className="text-base font-medium text-zinc-400 transition-colors hover:text-red-500"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                아사나
+              </Link>
+              <Link
+                href="#practice-record"
+                className="text-base font-medium text-zinc-400 transition-colors hover:text-red-500"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                기록
+              </Link>
+              <Link
+                href="#practice-record"
+                className="text-base font-medium text-zinc-400 transition-colors hover:text-red-500"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                요가원
+              </Link>
+              <Link
+                href="#philosophy"
+                className="text-base font-medium text-zinc-400 transition-colors hover:text-red-500"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                철학
+              </Link>
+              <Link
+                href="#benefits"
+                className="text-base font-medium text-zinc-400 transition-colors hover:text-red-500"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                혜택
+              </Link>
+              <Link
+                href="#download"
+                className="text-base font-medium text-zinc-400 transition-colors hover:text-red-500"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                준비중
+              </Link>
+            </nav>
+          </div>
+        )}
       </header>
       <main className="flex-1">
         <section id="asanas" className="w-full py-4 md:py-8 lg:py-12 bg-black">
