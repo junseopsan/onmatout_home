@@ -355,7 +355,7 @@ export default function Home() {
               기록
             </Link>
             <Link
-              href="#practice-record"
+              href="#studio-search"
               className="text-sm font-medium text-zinc-400 transition-colors hover:text-red-500"
             >
               요가원
@@ -546,7 +546,10 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col items-center space-y-8 rounded-lg bg-black p-8">
+              <div
+                id="studio-search"
+                className="flex flex-col items-center space-y-8 rounded-lg bg-black p-8"
+              >
                 <div className="flex flex-col items-center justify-center space-y-4 text-center">
                   <div className="rounded-full border border-zinc-800 bg-red-900/20 p-4 text-red-500">
                     <MapPin className="h-8 w-8" />
