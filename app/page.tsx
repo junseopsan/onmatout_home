@@ -744,13 +744,13 @@ export default function Home() {
             © 2025 ONMATOUT. All rights reserved.
           </p>
           <div className="flex gap-4">
-            {/* <Link
-              href="#"
+            <Link
+              href="/privacy-policy"
               className="text-sm font-medium text-zinc-500 transition-colors hover:text-red-500"
             >
               개인정보 처리방침
             </Link>
-            <Link
+            {/* <Link
               href="#"
               className="text-sm font-medium text-zinc-500 transition-colors hover:text-red-500"
             >
