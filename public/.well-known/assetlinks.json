@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.onmatout.app",
+      "sha256_cert_fingerprints": [
+        "3D:06:D8:12:4C:CE:0A:5B:D1:93:15:71:79:57:33:E2:32:17:E7:87:C6:2E:E6:F0:75:A9:84:0F:28:5B:F9:CF"
+      ]
+    }
+  }
+]
