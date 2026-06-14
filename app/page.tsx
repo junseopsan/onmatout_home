@@ -693,8 +693,9 @@ export default function Home() {
                   과 함께하세요
                 </h2>
                 <p className="mx-auto max-w-[640px] text-xl text-zinc-300 md:text-2xl">
-                  iOS와 Android에서 만나보세요. 선생님과 회원, 모두를 위한 AI
-                  클래스 케어.
+                  iOS와 Android에서 만나보세요. 선생님과 회원, 모두를 위한
+                  <br />
+                  AI 클래스 케어. 클래스 케어.
                 </p>
                 <div className="pt-2">
                   <StoreButtons />
