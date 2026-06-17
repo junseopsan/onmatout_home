@@ -47,7 +47,7 @@ export default function InvitePage() {
       }}
     >
       <div style={{ width: "100%", maxWidth: 380, textAlign: "center" }}>
-        <h1 style={{ fontSize: 22, margin: "0 0 8px" }}>온매트아웃 초대</h1>
+        <h1 style={{ fontSize: 22, margin: "0 0 8px" }}>요가원 초대</h1>
         <p
           style={{
             color: "#a1a1aa",
@@ -56,7 +56,7 @@ export default function InvitePage() {
             margin: "0 0 20px",
           }}
         >
-          앱을 설치하고 열면 선생님과 자동으로 연결돼요.
+          앱을 설치한 뒤 이 링크를 다시 열면 요가원에 연결돼요.
         </p>
         {code ? (
           <div
