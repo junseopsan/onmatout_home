@@ -130,8 +130,8 @@ export default function PrivacyPolicyPage() {
                       <li>사용자가 AI 도우미에게 입력한 질문 내용</li>
                       <li>
                         답변 생성을 위해 입력한 질문은 등록된 요가 자료(아사나 사전
-                        등)와 함께 처리되며, 생성형 AI 처리를 위해 외부 AI 서비스로
-                        전송될 수 있습니다.
+                        등)와 함께 처리되며, 답변 생성을 위해 OpenAI(미국)로 전송될
+                        수 있습니다.
                       </li>
                       <li>
                         AI 답변은 참고용 정보이며, 통증, 부상, 임신 등 건강 관련
@@ -292,7 +292,7 @@ export default function PrivacyPolicyPage() {
                       </tr>
                       <tr>
                         <td className="border border-zinc-800 px-4 py-3 text-zinc-400">
-                          생성형 AI 서비스 제공업체
+                          OpenAI, L.L.C. (미국)
                         </td>
                         <td className="border border-zinc-800 px-4 py-3 text-zinc-400">
                           요가톡 AI 도우미 답변 생성 처리
