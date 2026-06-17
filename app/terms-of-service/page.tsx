@@ -109,10 +109,15 @@ export default function TermsOfServicePage() {
                   <li>
                     회사는 다음과 같은 서비스를 제공합니다:
                     <ul className="ml-6 mt-2 list-disc space-y-1">
-                      <li>요가 수련 기록, 통계 및 아사나 정보 제공</li>
-                      <li>요가원 등록 및 운영 관리(클래스, 수업권, 예약, 출석)</li>
-                      <li>QR/링크/위치 기반 선생님-수련생 연결</li>
-                      <li>선생님과 수련생 간 메시지(요가톡)</li>
+                      <li>요가 수련 기록, 통계 및 아사나 사전 제공</li>
+                      <li>요가원 등록 및 운영 관리(클래스, 수업권, 출석)</li>
+                      <li>
+                        요가원 단위 초대 링크/QR 및 위치 기반 선생님-수련생 연결
+                      </li>
+                      <li>복습 루틴(시퀀스) 공유 및 댓글</li>
+                      <li>
+                        요가톡 채팅(1:1, 그룹, 요가원 Q&amp;A) 및 요가톡 AI 도우미
+                      </li>
                       <li>기타 회사가 정하는 서비스</li>
                     </ul>
                   </li>
@@ -311,6 +316,13 @@ export default function TermsOfServicePage() {
                     책임을 지지 않으며, 그 책임은 해당 정보를 게시·입력한 회원에게
                     있습니다.
                   </li>
+                  <li>
+                    요가톡 AI 도우미가 제공하는 답변은 일반적인 참고 정보이며,
+                    의학적이거나 전문적인 조언을 대체하지 않습니다. 통증, 부상, 임신
+                    등 건강 관련 사항은 선생님 또는 의료진과 상담하시기 바라며,
+                    회사는 AI 답변의 이용으로 발생한 결과에 대해 책임을 지지
+                    않습니다.
+                  </li>
                 </ol>
               </section>
             </div>
@@ -337,7 +349,7 @@ export default function TermsOfServicePage() {
               <section className="space-y-4">
                 <h2 className="text-2xl font-bold text-white">부칙</h2>
                 <p className="text-zinc-400">
-                  이 약관은 2024년 1월 1일부터 적용됩니다.
+                  이 약관은 2026년 6월 17일부터 적용됩니다.
                 </p>
               </section>
             </div>

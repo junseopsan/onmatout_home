@@ -45,8 +45,9 @@ export default function PrivacyPolicyPage() {
                 </span>
                 (이하 &quot;서비스&quot;) 이용과 관련하여 사용자의 개인정보가
                 어떻게 수집, 이용, 보관, 제공되는지를 안내합니다. ONMATOUT은
-                선생님(원장)과 수련생을 연결하고 요가원의 클래스, 수업권, 예약,
-                출석을 관리하는 서비스를 제공합니다.
+                선생님(원장)과 수련생을 연결하고 요가원의 클래스, 수업권, 출석을
+                관리하며, 복습 루틴(시퀀스) 공유, 요가톡 채팅, 요가톡 AI 도우미,
+                아사나 사전 등의 기능을 제공합니다.
               </p>
             </div>
 
@@ -100,8 +101,42 @@ export default function PrivacyPolicyPage() {
                       수련생 이용 시
                     </h3>
                     <ul className="ml-6 list-disc space-y-1 text-zinc-400">
-                      <li>연결한 요가원, 보유 수업권, 수업 예약 및 출석 내역</li>
-                      <li>선생님과 주고받은 메시지(요가톡) 내용</li>
+                      <li>연결한 요가원, 보유 수업권, 출석 내역</li>
+                      <li>
+                        요가원 초대 링크/QR로 가입 시 전화번호를 이용한 자동
+                        연결(매칭) 처리
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="mb-2 text-lg font-semibold text-white">
+                      요가톡(채팅) 이용 시
+                    </h3>
+                    <ul className="ml-6 list-disc space-y-1 text-zinc-400">
+                      <li>
+                        선생님, 다른 수련생과 주고받은 메시지(1:1, 그룹 채팅,
+                        요가원 전체 Q&amp;A) 내용 및 전송 시각
+                      </li>
+                      <li>복습 루틴(시퀀스)에 남긴 댓글, 좋아요 내역</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="mb-2 text-lg font-semibold text-white">
+                      요가톡 AI 도우미 이용 시
+                    </h3>
+                    <ul className="ml-6 list-disc space-y-1 text-zinc-400">
+                      <li>사용자가 AI 도우미에게 입력한 질문 내용</li>
+                      <li>
+                        답변 생성을 위해 입력한 질문은 등록된 요가 자료(아사나 사전
+                        등)와 함께 처리되며, 생성형 AI 처리를 위해 외부 AI 서비스로
+                        전송될 수 있습니다.
+                      </li>
+                      <li>
+                        AI 답변은 참고용 정보이며, 통증, 부상, 임신 등 건강 관련
+                        사항은 선생님 또는 의료진과 상담하시기 바랍니다.
+                      </li>
                     </ul>
                   </div>
 
@@ -155,11 +190,12 @@ export default function PrivacyPolicyPage() {
                 </h2>
                 <ul className="ml-6 list-disc space-y-2 text-zinc-400">
                   <li>서비스 가입 및 본인확인(전화번호 인증)</li>
-                  <li>
-                    선생님-수련생 연결 및 요가원의 클래스, 수업권, 예약, 출석 관리
-                  </li>
+                  <li>선생님-수련생 연결 및 요가원의 클래스, 수업권, 출석 관리</li>
+                  <li>요가원 초대 링크/QR 가입 시 전화번호 기반 자동 연결(매칭)</li>
                   <li>위치 기반 연결 기능 제공(선택 동의 시)</li>
-                  <li>요가톡 메시지 송수신</li>
+                  <li>요가톡 채팅(1:1, 그룹, 요가원 Q&amp;A) 송수신</li>
+                  <li>요가톡 AI 도우미 답변 제공</li>
+                  <li>복습 루틴(시퀀스) 공유 및 댓글</li>
                   <li>수련 기록 및 개인 맞춤형 통계 제공</li>
                   <li>푸시 알림 및 공지사항 전달</li>
                   <li>서비스 품질 개선 및 신규 기능 개발</li>
@@ -203,8 +239,12 @@ export default function PrivacyPolicyPage() {
                 <ul className="ml-6 list-disc space-y-2 text-zinc-400">
                   <li>
                     수련생이 특정 요가원에 연결(가입)하는 경우, 해당 요가원의
-                    운영자(원장/선생님)에게 수련생의 이름, 연락처, 수업권, 예약 및
-                    출석 정보가 제공됩니다.
+                    운영자(원장/선생님)에게 수련생의 이름, 연락처, 수업권 및 출석
+                    정보가 제공됩니다.
+                  </li>
+                  <li>
+                    요가원 전체 Q&amp;A 또는 그룹 채팅에 작성한 메시지는 해당
+                    채팅방 참여자에게 공개됩니다.
                   </li>
                   <li>사용자가 사전에 동의한 경우</li>
                   <li>법령에 의거하여 수사기관, 법원 등이 요청하는 경우</li>
@@ -239,7 +279,7 @@ export default function PrivacyPolicyPage() {
                           Supabase Inc.
                         </td>
                         <td className="border border-zinc-800 px-4 py-3 text-zinc-400">
-                          인증, 데이터베이스 및 이미지 저장소 관리
+                          인증, 데이터베이스, 이미지 저장소 및 서버리스 함수 관리
                         </td>
                       </tr>
                       <tr>
@@ -248,6 +288,14 @@ export default function PrivacyPolicyPage() {
                         </td>
                         <td className="border border-zinc-800 px-4 py-3 text-zinc-400">
                           푸시 알림 발송
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-zinc-800 px-4 py-3 text-zinc-400">
+                          생성형 AI 서비스 제공업체
+                        </td>
+                        <td className="border border-zinc-800 px-4 py-3 text-zinc-400">
+                          요가톡 AI 도우미 답변 생성 처리
                         </td>
                       </tr>
                     </tbody>
@@ -355,7 +403,7 @@ export default function PrivacyPolicyPage() {
                 </p>
                 <p className="text-zinc-400">
                   <span className="font-medium text-white">시행일자:</span>{" "}
-                  2025년 8월 27일
+                  2026년 6월 17일
                 </p>
               </section>
             </div>
