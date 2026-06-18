@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { supabase } from "@/lib/supabase";
 
@@ -16,6 +17,7 @@ type Doc = {
 
 const SOURCE_TYPES = [
   { value: "general", label: "일반" },
+  { value: "book", label: "서적" },
   { value: "asana", label: "아사나" },
   { value: "anatomy", label: "해부학" },
   { value: "philosophy", label: "철학" },
@@ -302,12 +304,20 @@ export default function AdminKnowledgePage() {
             문서를 추가하면 자동으로 임베딩되어 `yoga-ask` 검색 대상에 포함됩니다.
           </p>
         </div>
-        <button
-          onClick={load}
-          className="rounded-md border border-neutral-700 px-3 py-1.5 text-xs text-neutral-300 transition hover:bg-neutral-800"
-        >
-          새로고침
-        </button>
+        <div className="flex gap-2">
+          <Link
+            href="/admin/knowledge/pdf"
+            className="rounded-md border border-violet-700/60 bg-violet-600/20 px-3 py-1.5 text-xs text-violet-200 transition hover:bg-violet-600/30"
+          >
+            + PDF로 추가
+          </Link>
+          <button
+            onClick={load}
+            className="rounded-md border border-neutral-700 px-3 py-1.5 text-xs text-neutral-300 transition hover:bg-neutral-800"
+          >
+            새로고침
+          </button>
+        </div>
       </header>
 
       {error ? (

@@ -27,3 +27,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+
+# macOS
+.DS_Store
+
+# pdfjs worker (postinstall 로 node_modules 에서 재생성 — scripts/copy-pdf-worker.mjs)
+public/vendor/
