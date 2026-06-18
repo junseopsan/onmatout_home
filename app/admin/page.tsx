@@ -25,7 +25,7 @@ export default function AdminIndexPage() {
   }, [router]);
 
   return (
-    <div className="flex h-screen items-center justify-center text-sm text-neutral-500">
+    <div className="flex h-screen items-center justify-center text-sm text-muted-ink">
       {checking ? "잠시만요…" : ""}
     </div>
   );

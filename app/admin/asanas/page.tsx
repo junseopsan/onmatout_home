@@ -280,11 +280,11 @@ export default function AdminAsanasPage() {
     <AdminShell>
       <header className="mb-8 flex items-end justify-between gap-4">
         <div>
-          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-muted-ink">
             아사나
           </p>
-          <h1 className="text-2xl font-semibold tracking-tight">아사나 관리</h1>
-          <p className="mt-1 text-sm text-neutral-400">
+          <h1 className="font-display text-3xl font-semibold tracking-tight">아사나 관리</h1>
+          <p className="mt-1 text-sm text-muted-ink">
             아사나 사전을 등록·수정·삭제합니다. 저장 시 AI 지식베이스에 자동
             반영(ingest)됩니다.
           </p>
@@ -292,13 +292,13 @@ export default function AdminAsanasPage() {
         <div className="flex gap-2">
           <button
             onClick={openNew}
-            className="rounded-md border border-violet-700/60 bg-violet-600/20 px-3 py-1.5 text-xs text-violet-200 transition hover:bg-violet-600/30"
+            className="rounded-md border border-coral/40 bg-coral/12 px-3 py-1.5 text-xs text-coral-active transition hover:bg-coral/20"
           >
             + 새 아사나
           </button>
           <button
             onClick={load}
-            className="rounded-md border border-neutral-700 px-3 py-1.5 text-xs text-neutral-300 transition hover:bg-neutral-800"
+            className="rounded-md border border-hairline px-3 py-1.5 text-xs text-body transition hover:bg-surface-strong"
           >
             새로고침
           </button>
@@ -306,17 +306,17 @@ export default function AdminAsanasPage() {
       </header>
 
       {error ? (
-        <div className="mb-6 rounded-md border border-red-900/50 bg-red-950/40 px-3 py-2 text-xs text-red-300">
+        <div className="mb-6 rounded-md border border-error/30 bg-error/10 px-3 py-2 text-xs text-error">
           {error}
         </div>
       ) : null}
 
       {notice ? (
-        <div className="mb-6 flex items-center justify-between gap-3 rounded-md border border-emerald-900/50 bg-emerald-950/30 px-3 py-2 text-xs text-emerald-300">
+        <div className="mb-6 flex items-center justify-between gap-3 rounded-md border border-success/30 bg-success/12 px-3 py-2 text-xs text-success">
           <span>{notice}</span>
           <button
             onClick={() => setNotice(null)}
-            className="text-emerald-400/70 hover:text-emerald-200"
+            className="text-success hover:text-success"
           >
             ✕
           </button>
@@ -329,7 +329,7 @@ export default function AdminAsanasPage() {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="rounded-md border border-neutral-700 bg-neutral-950 px-2 py-1.5 text-xs outline-none focus:border-violet-500"
+            className="rounded-md border border-hairline bg-canvas px-2 py-1.5 text-xs outline-none focus:border-coral"
           >
             <option value="all">전체 카테고리</option>
             {categories.map((c) => (
@@ -341,7 +341,7 @@ export default function AdminAsanasPage() {
           <select
             value={levelFilter}
             onChange={(e) => setLevelFilter(e.target.value)}
-            className="rounded-md border border-neutral-700 bg-neutral-950 px-2 py-1.5 text-xs outline-none focus:border-violet-500"
+            className="rounded-md border border-hairline bg-canvas px-2 py-1.5 text-xs outline-none focus:border-coral"
           >
             <option value="all">전체 레벨</option>
             {levels.map((l) => (
@@ -350,7 +350,7 @@ export default function AdminAsanasPage() {
               </option>
             ))}
           </select>
-          <span className="text-[11px] text-neutral-500">
+          <span className="text-[11px] text-muted-ink">
             {filtered.length} / {asanas.length}
           </span>
         </div>
@@ -358,13 +358,13 @@ export default function AdminAsanasPage() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="이름·별칭 검색…"
-          className="w-60 rounded-md border border-neutral-700 bg-neutral-950 px-3 py-1.5 text-sm placeholder-neutral-600 outline-none focus:border-violet-500"
+          className="w-60 rounded-md border border-hairline bg-canvas px-3 py-1.5 text-sm placeholder-muted-soft outline-none focus:border-coral"
         />
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-neutral-800">
+      <div className="overflow-hidden rounded-lg border border-hairline">
         <table className="w-full text-sm">
-          <thead className="bg-neutral-900/60 text-left text-[11px] uppercase tracking-wider text-neutral-500">
+          <thead className="bg-surface-soft text-left text-[11px] uppercase tracking-wider text-muted-ink">
             <tr>
               <th className="px-4 py-2.5">이미지</th>
               <th className="px-4 py-2.5">이름</th>
@@ -377,14 +377,14 @@ export default function AdminAsanasPage() {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-neutral-500">
+                <td colSpan={6} className="px-4 py-8 text-center text-muted-ink">
                   불러오는 중…
                 </td>
               </tr>
             ) : null}
             {!loading && filtered.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-neutral-500">
+                <td colSpan={6} className="px-4 py-8 text-center text-muted-ink">
                   조건에 맞는 아사나가 없어요.
                 </td>
               </tr>
@@ -394,7 +394,7 @@ export default function AdminAsanasPage() {
               return (
                 <tr
                   key={a.id}
-                  className="border-t border-neutral-800 align-middle transition hover:bg-neutral-900/50"
+                  className="border-t border-hairline align-middle transition hover:bg-surface-soft"
                 >
                   <td className="px-4 py-2">
                     {src ? (
@@ -402,45 +402,45 @@ export default function AdminAsanasPage() {
                       <img
                         src={src}
                         alt=""
-                        className="h-12 w-12 rounded border border-neutral-800 bg-neutral-100 object-contain p-0.5"
+                        className="h-12 w-12 rounded border border-hairline bg-neutral-100 object-contain p-0.5"
                         onError={(e) => {
                           (e.target as HTMLImageElement).style.visibility =
                             "hidden";
                         }}
                       />
                     ) : (
-                      <div className="flex h-12 w-12 items-center justify-center rounded border border-neutral-800 text-[10px] text-neutral-600">
+                      <div className="flex h-12 w-12 items-center justify-center rounded border border-hairline text-[10px] text-muted-soft">
                         없음
                       </div>
                     )}
                   </td>
                   <td className="px-4 py-2">
-                    <p className="font-medium text-neutral-100">
+                    <p className="font-medium text-ink">
                       {a.sanskrit_name_kr}
                     </p>
-                    <p className="text-[11px] text-neutral-500">
+                    <p className="text-[11px] text-muted-ink">
                       {a.sanskrit_name_en}
                     </p>
                   </td>
-                  <td className="px-4 py-2 text-neutral-300">
+                  <td className="px-4 py-2 text-body">
                     {catKo(a.category_name_en)}
                   </td>
-                  <td className="px-4 py-2 text-neutral-400">{a.level ?? "—"}</td>
-                  <td className="px-4 py-2 text-neutral-400">
+                  <td className="px-4 py-2 text-muted-ink">{a.level ?? "—"}</td>
+                  <td className="px-4 py-2 text-muted-ink">
                     {a.image_number ? `${a.image_number} · ${a.image_count}장` : "—"}
                   </td>
                   <td className="px-4 py-2 text-right">
                     <div className="flex justify-end gap-2">
                       <button
                         onClick={() => openEdit(a)}
-                        className="rounded-md border border-violet-700/60 px-2.5 py-1 text-[11px] text-violet-300 transition hover:bg-violet-950/40"
+                        className="rounded-md border border-coral/40 px-2.5 py-1 text-[11px] text-coral-active transition hover:bg-coral/[0.08]"
                       >
                         수정
                       </button>
                       <button
                         onClick={() => remove(a)}
                         disabled={busy}
-                        className="rounded-md border border-red-900/60 px-2.5 py-1 text-[11px] text-red-300 transition hover:bg-red-950/40 disabled:opacity-40"
+                        className="rounded-md border border-error/40 px-2.5 py-1 text-[11px] text-error transition hover:bg-error/10 disabled:opacity-40"
                       >
                         삭제
                       </button>
@@ -493,14 +493,14 @@ function AsanaEditor({
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/70 p-4 md:p-8">
-      <div className="w-full max-w-2xl rounded-lg border border-neutral-800 bg-neutral-950 p-6">
+      <div className="w-full max-w-2xl rounded-lg border border-hairline bg-canvas p-6">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-neutral-100">
+          <h2 className="text-lg font-semibold text-ink">
             {form.id ? "아사나 수정" : "새 아사나"}
           </h2>
           <button
             onClick={onCancel}
-            className="rounded-md border border-neutral-700 px-2.5 py-1 text-xs text-neutral-400 transition hover:bg-neutral-800"
+            className="rounded-md border border-hairline px-2.5 py-1 text-xs text-muted-ink transition hover:bg-surface-strong"
           >
             닫기
           </button>
@@ -596,7 +596,7 @@ function AsanaEditor({
         {/* 이미지 미리보기 */}
         {form.image_number ? (
           <div className="mt-4">
-            <p className="mb-2 text-[11px] uppercase tracking-wider text-neutral-500">
+            <p className="mb-2 text-[11px] uppercase tracking-wider text-muted-ink">
               이미지 미리보기 (public/images/asanas)
             </p>
             <div className="flex flex-wrap gap-2">
@@ -607,7 +607,7 @@ function AsanaEditor({
                     key={i}
                     src={src}
                     alt=""
-                    className="h-16 w-16 rounded border border-neutral-800 bg-neutral-100 object-contain p-1"
+                    className="h-16 w-16 rounded border border-hairline bg-neutral-100 object-contain p-1"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.opacity = "0.2";
                     }}
@@ -615,7 +615,7 @@ function AsanaEditor({
                 ) : null,
               )}
             </div>
-            <p className="mt-1 text-[11px] text-neutral-600">
+            <p className="mt-1 text-[11px] text-muted-soft">
               ※ 이미지 파일은 별도로 public/images/asanas/{form.image_number}_00N.png 로
               추가/배포해야 표시됩니다.
             </p>
@@ -626,14 +626,14 @@ function AsanaEditor({
           <button
             onClick={onCancel}
             disabled={busy}
-            className="rounded-md border border-neutral-700 px-3 py-1.5 text-xs text-neutral-300 transition hover:bg-neutral-800"
+            className="rounded-md border border-hairline px-3 py-1.5 text-xs text-body transition hover:bg-surface-strong"
           >
             취소
           </button>
           <button
             onClick={onSave}
             disabled={busy}
-            className="rounded-md border border-violet-700/60 bg-violet-600/20 px-4 py-1.5 text-xs text-violet-200 transition hover:bg-violet-600/30 disabled:opacity-40"
+            className="rounded-md border border-coral/40 bg-coral/12 px-4 py-1.5 text-xs text-coral-active transition hover:bg-coral/20 disabled:opacity-40"
           >
             {busy ? "저장 중…" : "저장"}
           </button>
@@ -644,7 +644,7 @@ function AsanaEditor({
 }
 
 const inputCls =
-  "w-full rounded-md border border-neutral-700 bg-neutral-950 px-2.5 py-1.5 text-sm text-neutral-100 placeholder-neutral-600 outline-none focus:border-violet-500";
+  "w-full rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm text-ink placeholder-muted-soft outline-none focus:border-coral";
 
 function Field({
   label,
@@ -655,7 +655,7 @@ function Field({
 }) {
   return (
     <label className="block space-y-1">
-      <span className="text-[11px] uppercase tracking-wider text-neutral-500">
+      <span className="text-[11px] uppercase tracking-wider text-muted-ink">
         {label}
       </span>
       {children}

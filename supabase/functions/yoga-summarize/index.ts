@@ -19,7 +19,8 @@ const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
 const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY") ?? "";
 
-const LLM_MODEL = "gpt-4o-mini";
+const LLM_MODEL = "gpt-4o-mini"; // 텍스트 요약
+const VISION_MODEL = "gpt-4o"; // 이미지(OCR) — 한국어 인식 정확도 위해 full 4o
 const MAX_INPUT = 16000; // 한 섹션 원문 입력 상한 (그 이상은 잘라서 전달)
 const MAX_OUTPUT = 7000; // 요약 content 상한 (yoga-ingest 의 8000 제한 하한 여유)
 
@@ -37,6 +38,20 @@ const SYSTEM_PROMPT = `당신은 요가 지식베이스 큐레이터입니다.
 
 반드시 아래 JSON 객체만 출력:
 {"title": string, "content": string, "safety": boolean, "drop": boolean}`;
+
+// 원문 그대로(전사) 모드 — 의역·요약 없이 충실히 옮겨 적기
+const VERBATIM_PROMPT = `당신은 정확한 한국어 전사기입니다.
+주어진 책/문서의 본문 텍스트를 빠짐없이 그대로 옮겨 적으세요.
+
+규칙:
+- 의역·요약·생략 금지. 본문을 있는 그대로 전사하세요.
+- 쪽번호·머리말/꼬리말·워터마크 등 본문이 아닌 잡요소는 제외.
+- 표/목록은 읽는 순서대로 자연스럽게 풀어 쓰세요.
+- 본문이 거의 없으면(목차·표지·빈 페이지 등) drop=true.
+- 의료/부상/통증/임신/만성질환/금기 등 안전 민감 주제가 있으면 safety=true.
+
+반드시 아래 JSON 객체만 출력:
+{"title": string(짧은 주제/소제목), "content": string(전사한 본문), "safety": boolean, "drop": boolean}`;
 
 function corsHeaders() {
   return {
@@ -93,13 +108,67 @@ serve(async (req) => {
 
     const body = await req.json();
     const rawText = (body?.text ?? "").toString().trim();
+    const image = (body?.image ?? "").toString().trim(); // data URL (image/jpeg|png)
     const bookTitle = (body?.book_title ?? "").toString().trim();
-    if (!rawText) return json({ error: "text 필수" }, 400);
+    const verbatim = body?.mode === "verbatim"; // 기본은 요약
+    if (!rawText && !image) {
+      return json({ error: "text 또는 image 필수" }, 400);
+    }
 
-    const text = rawText.slice(0, MAX_INPUT);
-    const userContent =
-      (bookTitle ? `출처(서적): ${bookTitle}\n\n` : "") +
-      `원문 섹션:\n${text}`;
+    // 원문 그대로 + 텍스트: 이미 추출된 텍스트라 LLM 호출 없이 그대로 반환
+    if (verbatim && !image) {
+      const text = rawText.slice(0, MAX_OUTPUT);
+      const firstLine =
+        text.split("\n").map((s) => s.trim()).find(Boolean) ?? "원문";
+      return json({
+        title: firstLine.slice(0, 40),
+        content: text,
+        safety: false,
+        drop: text.trim().length < 1,
+      });
+    }
+
+    const systemPrompt = verbatim ? VERBATIM_PROMPT : SYSTEM_PROMPT;
+
+    // 이미지(OCR) 모드 vs 텍스트 모드
+    let requestBody: Record<string, unknown>;
+    if (image) {
+      const instruction = verbatim
+        ? (bookTitle ? `출처(서적): ${bookTitle}\n` : "") +
+          "아래 페이지 이미지의 본문 텍스트를 빠짐없이 그대로 한국어로 전사하세요. 요약·의역 금지."
+        : (bookTitle ? `출처(서적): ${bookTitle}\n` : "") +
+          "아래는 책/문서의 한 페이지 이미지입니다. 페이지의 한국어 텍스트를 읽고," +
+          " 규칙에 따라 재서술 요약 노트로 변환하세요. 의미있는 본문이 없으면 drop=true.";
+      requestBody = {
+        model: VISION_MODEL,
+        max_tokens: verbatim ? 2500 : 1200,
+        response_format: { type: "json_object" },
+        messages: [
+          { role: "system", content: systemPrompt },
+          {
+            role: "user",
+            content: [
+              { type: "text", text: instruction },
+              { type: "image_url", image_url: { url: image, detail: "high" } },
+            ],
+          },
+        ],
+      };
+    } else {
+      const text = rawText.slice(0, MAX_INPUT);
+      const userContent =
+        (bookTitle ? `출처(서적): ${bookTitle}\n\n` : "") +
+        `원문 섹션:\n${text}`;
+      requestBody = {
+        model: LLM_MODEL,
+        max_tokens: 1200,
+        response_format: { type: "json_object" },
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userContent },
+        ],
+      };
+    }
 
     const r = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -107,15 +176,7 @@ serve(async (req) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${OPENAI_API_KEY}`,
       },
-      body: JSON.stringify({
-        model: LLM_MODEL,
-        max_tokens: 1200,
-        response_format: { type: "json_object" },
-        messages: [
-          { role: "system", content: SYSTEM_PROMPT },
-          { role: "user", content: userContent },
-        ],
-      }),
+      body: JSON.stringify(requestBody),
     });
     if (!r.ok) {
       throw new Error(`llm failed (${r.status}): ${await r.text()}`);

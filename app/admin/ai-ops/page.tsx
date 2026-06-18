@@ -151,11 +151,11 @@ export default function AdminAiOpsPage() {
     <AdminShell>
       <header className="mb-8 flex items-end justify-between gap-4">
         <div>
-          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-muted-ink">
             AI · 앱운영
           </p>
-          <h1 className="text-2xl font-semibold tracking-tight">AI 운영 / 앱버전</h1>
-          <p className="mt-1 text-sm text-neutral-400">
+          <h1 className="font-display text-3xl font-semibold tracking-tight">AI 운영 / 앱버전</h1>
+          <p className="mt-1 text-sm text-muted-ink">
             AI 어시스턴트(옴) 답변 품질을 모니터링하고, 앱 강제 업데이트를 관리하세요.
           </p>
         </div>
@@ -168,8 +168,8 @@ export default function AdminAiOpsPage() {
                 className={
                   "rounded-md border px-2.5 py-1 text-xs transition " +
                   (period === p.value
-                    ? "border-violet-500 bg-violet-600/20 text-violet-200"
-                    : "border-neutral-700 text-neutral-400 hover:bg-neutral-800")
+                    ? "border-coral bg-coral/12 text-coral-active"
+                    : "border-hairline text-muted-ink hover:bg-surface-strong")
                 }
               >
                 {p.label}
@@ -178,7 +178,7 @@ export default function AdminAiOpsPage() {
           </div>
           <button
             onClick={() => load(period)}
-            className="rounded-md border border-neutral-700 px-3 py-1.5 text-xs text-neutral-300 transition hover:bg-neutral-800"
+            className="rounded-md border border-hairline px-3 py-1.5 text-xs text-body transition hover:bg-surface-strong"
           >
             새로고침
           </button>
@@ -186,7 +186,7 @@ export default function AdminAiOpsPage() {
       </header>
 
       {error ? (
-        <div className="mb-6 rounded-md border border-red-900/50 bg-red-950/40 px-3 py-2 text-xs text-red-300">
+        <div className="mb-6 rounded-md border border-error/30 bg-error/10 px-3 py-2 text-xs text-error">
           {error}
         </div>
       ) : null}
@@ -216,16 +216,16 @@ export default function AdminAiOpsPage() {
 
       {/* 추세 차트 */}
       <section className="mb-10">
-        <h2 className="mb-3 text-sm font-semibold text-neutral-200">
+        <h2 className="mb-3 text-sm font-semibold text-ink">
           일별 답변 수 ({PERIODS.find((p) => p.value === period)?.label})
         </h2>
-        <div className="rounded-lg border border-neutral-800 bg-neutral-900/30 p-4">
+        <div className="rounded-lg border border-hairline bg-surface-soft p-4">
           {loading ? (
-            <div className="flex h-56 items-center justify-center text-sm text-neutral-500">
+            <div className="flex h-56 items-center justify-center text-sm text-muted-ink">
               불러오는 중…
             </div>
           ) : stats.total === 0 ? (
-            <div className="flex h-56 items-center justify-center text-sm text-neutral-500">
+            <div className="flex h-56 items-center justify-center text-sm text-muted-ink">
               해당 기간에 답변 기록이 없어요.
             </div>
           ) : (
@@ -268,10 +268,10 @@ export default function AdminAiOpsPage() {
       <section className="mb-10">
         <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
           <div>
-            <h2 className="text-sm font-semibold text-neutral-200">
+            <h2 className="text-sm font-semibold text-ink">
               답변 로그 ({filteredLogs.length})
             </h2>
-            <p className="text-[11px] text-neutral-500">
+            <p className="text-[11px] text-muted-ink">
               안전문구·지도자추천·출처없음 항목을 점검해 품질을 관리하세요.
             </p>
           </div>
@@ -293,21 +293,21 @@ export default function AdminAiOpsPage() {
                   className={
                     "rounded-md border px-2.5 py-1 text-xs transition " +
                     (active
-                      ? "border-violet-500 bg-violet-600/20 text-violet-200"
-                      : "border-neutral-700 text-neutral-400 hover:bg-neutral-800")
+                      ? "border-coral bg-coral/12 text-coral-active"
+                      : "border-hairline text-muted-ink hover:bg-surface-strong")
                   }
                 >
                   {f.label}
-                  <span className="ml-1 text-[10px] text-neutral-500">{count}</span>
+                  <span className="ml-1 text-[10px] text-muted-ink">{count}</span>
                 </button>
               );
             })}
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-lg border border-neutral-800">
+        <div className="overflow-hidden rounded-lg border border-hairline">
           <table className="w-full text-sm">
-            <thead className="bg-neutral-900/60 text-left text-[11px] uppercase tracking-wider text-neutral-500">
+            <thead className="bg-surface-soft text-left text-[11px] uppercase tracking-wider text-muted-ink">
               <tr>
                 <th className="px-4 py-2.5">질문 · 답변</th>
                 <th className="px-4 py-2.5">플래그</th>
@@ -318,7 +318,7 @@ export default function AdminAiOpsPage() {
             <tbody>
               {!loading && filteredLogs.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-4 py-8 text-center text-neutral-500">
+                  <td colSpan={4} className="px-4 py-8 text-center text-muted-ink">
                     조건에 맞는 로그가 없어요.
                   </td>
                 </tr>
@@ -330,16 +330,16 @@ export default function AdminAiOpsPage() {
                   <tr
                     key={l.id}
                     onClick={() => setExpandedId(open ? null : l.id)}
-                    className="cursor-pointer border-t border-neutral-800 align-top transition hover:bg-neutral-900/50"
+                    className="cursor-pointer border-t border-hairline align-top transition hover:bg-surface-soft"
                   >
                     <td className="px-4 py-3">
-                      <p className="font-medium text-neutral-100">{l.question}</p>
+                      <p className="font-medium text-ink">{l.question}</p>
                       {open ? (
-                        <p className="mt-1 max-w-2xl whitespace-pre-wrap text-xs text-neutral-400">
+                        <p className="mt-1 max-w-2xl whitespace-pre-wrap text-xs text-muted-ink">
                           {l.answer}
                         </p>
                       ) : (
-                        <p className="mt-1 max-w-xl truncate text-[11px] text-neutral-500">
+                        <p className="mt-1 max-w-xl truncate text-[11px] text-muted-ink">
                           {l.answer}
                         </p>
                       )}
@@ -356,15 +356,15 @@ export default function AdminAiOpsPage() {
                         {!l.safety_notice_required &&
                         !l.should_recommend_teacher &&
                         sources > 0 ? (
-                          <span className="text-[11px] text-neutral-600">—</span>
+                          <span className="text-[11px] text-muted-soft">—</span>
                         ) : null}
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-neutral-300">
+                    <td className="px-4 py-3 text-body">
                       {sources}
-                      <span className="text-[11px] text-neutral-600"> 문서</span>
+                      <span className="text-[11px] text-muted-soft"> 문서</span>
                     </td>
-                    <td className="px-4 py-3 text-neutral-400">
+                    <td className="px-4 py-3 text-muted-ink">
                       {(l.created_at ?? "").slice(0, 16).replace("T", " ")}
                     </td>
                   </tr>
@@ -373,7 +373,7 @@ export default function AdminAiOpsPage() {
             </tbody>
           </table>
           {filteredLogs.length > 200 ? (
-            <p className="border-t border-neutral-800 px-4 py-2 text-[11px] text-neutral-500">
+            <p className="border-t border-hairline px-4 py-2 text-[11px] text-muted-ink">
               상위 200건만 표시합니다. 기간/필터로 좁혀주세요.
             </p>
           ) : null}
@@ -398,25 +398,25 @@ function KpiCard({
   tone?: "neutral" | "amber" | "sky" | "red";
 }) {
   const toneCls = {
-    neutral: "text-neutral-100",
-    amber: "text-amber-300",
-    sky: "text-sky-300",
-    red: "text-red-300",
+    neutral: "text-ink",
+    amber: "text-warning",
+    sky: "text-accent-teal",
+    red: "text-error",
   }[tone];
   return (
-    <div className="rounded-lg border border-neutral-800 bg-neutral-900/30 px-4 py-3">
-      <p className="text-[11px] uppercase tracking-wider text-neutral-500">{label}</p>
-      <p className={"mt-1 text-2xl font-semibold tracking-tight " + toneCls}>{value}</p>
-      {sub ? <p className="mt-0.5 text-[11px] text-neutral-500">{sub}</p> : null}
+    <div className="rounded-lg border border-hairline bg-surface-soft px-4 py-3">
+      <p className="text-[11px] uppercase tracking-wider text-muted-ink">{label}</p>
+      <p className={"mt-1 font-display text-3xl font-semibold tracking-tight " + toneCls}>{value}</p>
+      {sub ? <p className="mt-0.5 text-[11px] text-muted-ink">{sub}</p> : null}
     </div>
   );
 }
 
 function Flag({ label, tone }: { label: string; tone: "amber" | "sky" | "red" }) {
   const cls = {
-    amber: "border-amber-700/60 bg-amber-900/30 text-amber-200",
-    sky: "border-sky-800/60 bg-sky-900/30 text-sky-200",
-    red: "border-red-900/60 bg-red-950/40 text-red-300",
+    amber: "border-warning/40 bg-warning/15 text-warning",
+    sky: "border-accent-teal/40 bg-accent-teal/15 text-accent-teal",
+    red: "border-error/40 bg-error/10 text-error",
   }[tone];
   return (
     <span
@@ -519,14 +519,14 @@ function AppVersionEditor({
 
   return (
     <section>
-      <h2 className="mb-1 text-sm font-semibold text-neutral-200">앱버전 / 강제 업데이트</h2>
-      <p className="mb-3 text-[11px] text-neutral-500">
+      <h2 className="mb-1 text-sm font-semibold text-ink">앱버전 / 강제 업데이트</h2>
+      <p className="mb-3 text-[11px] text-muted-ink">
         플랫폼별 최소 버전(min_version)보다 낮은 앱은 강제 업데이트 화면이 노출됩니다.
       </p>
 
-      <div className="overflow-hidden rounded-lg border border-neutral-800">
+      <div className="overflow-hidden rounded-lg border border-hairline">
         <table className="w-full text-sm">
-          <thead className="bg-neutral-900/60 text-left text-[11px] uppercase tracking-wider text-neutral-500">
+          <thead className="bg-surface-soft text-left text-[11px] uppercase tracking-wider text-muted-ink">
             <tr>
               <th className="px-4 py-2.5">플랫폼</th>
               <th className="px-4 py-2.5">최소 버전</th>
@@ -537,7 +537,7 @@ function AppVersionEditor({
           <tbody>
             {versions.length === 0 ? (
               <tr>
-                <td colSpan={4} className="px-4 py-6 text-center text-neutral-500">
+                <td colSpan={4} className="px-4 py-6 text-center text-muted-ink">
                   등록된 앱버전이 없어요. 아래에서 추가하세요.
                 </td>
               </tr>
@@ -547,9 +547,9 @@ function AppVersionEditor({
               const dirty =
                 d.min_version !== v.min_version || d.store_url !== v.store_url;
               return (
-                <tr key={key(v)} className="border-t border-neutral-800 align-top">
+                <tr key={key(v)} className="border-t border-hairline align-top">
                   <td className="px-4 py-3">
-                    <span className="inline-flex items-center rounded-md border border-neutral-700 bg-neutral-900 px-2 py-0.5 text-[11px] font-medium text-neutral-300">
+                    <span className="inline-flex items-center rounded-md border border-hairline bg-surface-card px-2 py-0.5 text-[11px] font-medium text-body">
                       {v.platform}
                     </span>
                   </td>
@@ -557,21 +557,21 @@ function AppVersionEditor({
                     <input
                       value={d.min_version}
                       onChange={(e) => setField(v, "min_version", e.target.value)}
-                      className="w-28 rounded-md border border-neutral-700 bg-neutral-950 px-2 py-1 text-xs outline-none focus:border-violet-500"
+                      className="w-28 rounded-md border border-hairline bg-canvas px-2 py-1 text-xs outline-none focus:border-coral"
                     />
                   </td>
                   <td className="px-4 py-3">
                     <input
                       value={d.store_url}
                       onChange={(e) => setField(v, "store_url", e.target.value)}
-                      className="w-full min-w-[16rem] rounded-md border border-neutral-700 bg-neutral-950 px-2 py-1 text-xs outline-none focus:border-violet-500"
+                      className="w-full min-w-[16rem] rounded-md border border-hairline bg-canvas px-2 py-1 text-xs outline-none focus:border-coral"
                     />
                   </td>
                   <td className="px-4 py-3 text-right">
                     <button
                       onClick={() => save(v)}
                       disabled={!dirty || busy === key(v)}
-                      className="rounded-md border border-violet-700/60 bg-violet-600/20 px-2.5 py-1 text-[11px] text-violet-200 transition hover:bg-violet-600/30 disabled:opacity-40"
+                      className="rounded-md border border-coral/40 bg-coral/12 px-2.5 py-1 text-[11px] text-coral-active transition hover:bg-coral/20 disabled:opacity-40"
                     >
                       {busy === key(v) ? "저장 중…" : "저장"}
                     </button>
@@ -584,30 +584,30 @@ function AppVersionEditor({
       </div>
 
       {/* 신규 추가 */}
-      <div className="mt-3 flex flex-wrap items-center gap-2 rounded-lg border border-neutral-800 bg-neutral-900/30 px-4 py-3">
-        <span className="text-[11px] uppercase tracking-wider text-neutral-500">추가</span>
+      <div className="mt-3 flex flex-wrap items-center gap-2 rounded-lg border border-hairline bg-surface-soft px-4 py-3">
+        <span className="text-[11px] uppercase tracking-wider text-muted-ink">추가</span>
         <input
           value={newPlatform}
           onChange={(e) => setNewPlatform(e.target.value)}
           placeholder="platform (ios/android)"
-          className="w-40 rounded-md border border-neutral-700 bg-neutral-950 px-2 py-1 text-xs placeholder-neutral-600 outline-none focus:border-violet-500"
+          className="w-40 rounded-md border border-hairline bg-canvas px-2 py-1 text-xs placeholder-muted-soft outline-none focus:border-coral"
         />
         <input
           value={newMin}
           onChange={(e) => setNewMin(e.target.value)}
           placeholder="min_version (1.0.9)"
-          className="w-32 rounded-md border border-neutral-700 bg-neutral-950 px-2 py-1 text-xs placeholder-neutral-600 outline-none focus:border-violet-500"
+          className="w-32 rounded-md border border-hairline bg-canvas px-2 py-1 text-xs placeholder-muted-soft outline-none focus:border-coral"
         />
         <input
           value={newUrl}
           onChange={(e) => setNewUrl(e.target.value)}
           placeholder="store_url"
-          className="min-w-[14rem] flex-1 rounded-md border border-neutral-700 bg-neutral-950 px-2 py-1 text-xs placeholder-neutral-600 outline-none focus:border-violet-500"
+          className="min-w-[14rem] flex-1 rounded-md border border-hairline bg-canvas px-2 py-1 text-xs placeholder-muted-soft outline-none focus:border-coral"
         />
         <button
           onClick={add}
           disabled={addBusy}
-          className="rounded-md border border-violet-700/60 bg-violet-600/20 px-3 py-1 text-[11px] text-violet-200 transition hover:bg-violet-600/30 disabled:opacity-40"
+          className="rounded-md border border-coral/40 bg-coral/12 px-3 py-1 text-[11px] text-coral-active transition hover:bg-coral/20 disabled:opacity-40"
         >
           {addBusy ? "추가 중…" : "추가"}
         </button>

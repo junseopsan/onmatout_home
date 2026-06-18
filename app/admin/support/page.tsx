@@ -195,27 +195,27 @@ export default function AdminSupportPage() {
     <AdminShell>
       <header className="mb-8 flex items-end justify-between gap-4">
         <div>
-          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-muted-ink">
             지원
           </p>
-          <h1 className="text-2xl font-semibold tracking-tight">지원·신고 관리</h1>
-          <p className="mt-1 text-sm text-neutral-400">
+          <h1 className="font-display text-3xl font-semibold tracking-tight">지원·신고 관리</h1>
+          <p className="mt-1 text-sm text-muted-ink">
             사용자 문의·버그·기능요청에 답변하고 상태를 관리하세요.
             {pendingCount > 0 ? (
-              <span className="ml-2 text-amber-300">미처리 {pendingCount}건</span>
+              <span className="ml-2 text-warning">미처리 {pendingCount}건</span>
             ) : null}
           </p>
         </div>
         <button
           onClick={load}
-          className="rounded-md border border-neutral-700 px-3 py-1.5 text-xs text-neutral-300 transition hover:bg-neutral-800"
+          className="rounded-md border border-hairline px-3 py-1.5 text-xs text-body transition hover:bg-surface-strong"
         >
           새로고침
         </button>
       </header>
 
       {error ? (
-        <div className="mb-6 rounded-md border border-red-900/50 bg-red-950/40 px-3 py-2 text-xs text-red-300">
+        <div className="mb-6 rounded-md border border-error/30 bg-error/10 px-3 py-2 text-xs text-error">
           {error}
         </div>
       ) : null}
@@ -224,7 +224,7 @@ export default function AdminSupportPage() {
         <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
           <div className="flex flex-col gap-2">
             <div className="flex flex-wrap items-center gap-1">
-              <span className="mr-1 text-[11px] uppercase tracking-wider text-neutral-500">
+              <span className="mr-1 text-[11px] uppercase tracking-wider text-muted-ink">
                 상태
               </span>
               {STATUS_FILTERS.map((f) => {
@@ -240,20 +240,20 @@ export default function AdminSupportPage() {
                     className={
                       "rounded-md border px-2.5 py-1 text-xs transition " +
                       (active
-                        ? "border-violet-500 bg-violet-600/20 text-violet-200"
-                        : "border-neutral-700 text-neutral-400 hover:bg-neutral-800")
+                        ? "border-coral bg-coral/12 text-coral-active"
+                        : "border-hairline text-muted-ink hover:bg-surface-strong")
                     }
                   >
                     {f.label}
                     {count > 0 ? (
-                      <span className="ml-1 text-[10px] text-neutral-500">{count}</span>
+                      <span className="ml-1 text-[10px] text-muted-ink">{count}</span>
                     ) : null}
                   </button>
                 );
               })}
             </div>
             <div className="flex flex-wrap items-center gap-1">
-              <span className="mr-1 text-[11px] uppercase tracking-wider text-neutral-500">
+              <span className="mr-1 text-[11px] uppercase tracking-wider text-muted-ink">
                 분류
               </span>
               {CATEGORY_FILTERS.map((f) => {
@@ -265,8 +265,8 @@ export default function AdminSupportPage() {
                     className={
                       "rounded-md border px-2.5 py-1 text-xs transition " +
                       (active
-                        ? "border-violet-500 bg-violet-600/20 text-violet-200"
-                        : "border-neutral-700 text-neutral-400 hover:bg-neutral-800")
+                        ? "border-coral bg-coral/12 text-coral-active"
+                        : "border-hairline text-muted-ink hover:bg-surface-strong")
                     }
                   >
                     {f.label}
@@ -279,13 +279,13 @@ export default function AdminSupportPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="제목·내용·요청자 검색…"
-            className="w-64 rounded-md border border-neutral-700 bg-neutral-950 px-3 py-1.5 text-sm placeholder-neutral-600 outline-none focus:border-violet-500"
+            className="w-64 rounded-md border border-hairline bg-canvas px-3 py-1.5 text-sm placeholder-muted-soft outline-none focus:border-coral"
           />
         </div>
 
-        <div className="overflow-hidden rounded-lg border border-neutral-800">
+        <div className="overflow-hidden rounded-lg border border-hairline">
           <table className="w-full text-sm">
-            <thead className="bg-neutral-900/60 text-left text-[11px] uppercase tracking-wider text-neutral-500">
+            <thead className="bg-surface-soft text-left text-[11px] uppercase tracking-wider text-muted-ink">
               <tr>
                 <th className="px-4 py-2.5">요청자</th>
                 <th className="px-4 py-2.5">분류</th>
@@ -298,14 +298,14 @@ export default function AdminSupportPage() {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-neutral-500">
+                  <td colSpan={6} className="px-4 py-8 text-center text-muted-ink">
                     불러오는 중…
                   </td>
                 </tr>
               ) : null}
               {!loading && filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-neutral-500">
+                  <td colSpan={6} className="px-4 py-8 text-center text-muted-ink">
                     조건에 맞는 지원 요청이 없어요.
                   </td>
                 </tr>
@@ -317,11 +317,11 @@ export default function AdminSupportPage() {
                 return (
                   <tr
                     key={r.id}
-                    className="border-t border-neutral-800 align-top transition hover:bg-neutral-900/50"
+                    className="border-t border-hairline align-top transition hover:bg-surface-soft"
                   >
                     <td className="px-4 py-3">
-                      <p className="text-neutral-200">{u?.name ?? "—"}</p>
-                      <p className="mt-1 text-[11px] text-neutral-500">
+                      <p className="text-ink">{u?.name ?? "—"}</p>
+                      <p className="mt-1 text-[11px] text-muted-ink">
                         {u?.phone ?? (r.user_id ? r.user_id.slice(0, 8) : "탈퇴/익명")}
                       </p>
                     </td>
@@ -329,18 +329,18 @@ export default function AdminSupportPage() {
                       <CategoryBadge category={r.category} />
                     </td>
                     <td className="px-4 py-3">
-                      <p className="font-medium text-neutral-100">{r.title}</p>
+                      <p className="font-medium text-ink">{r.title}</p>
                       {isOpen ? (
-                        <p className="mt-1 max-w-xl whitespace-pre-wrap text-xs text-neutral-400">
+                        <p className="mt-1 max-w-xl whitespace-pre-wrap text-xs text-muted-ink">
                           {r.content}
                         </p>
                       ) : (
-                        <p className="mt-1 max-w-md truncate text-[11px] text-neutral-500">
+                        <p className="mt-1 max-w-md truncate text-[11px] text-muted-ink">
                           {r.content}
                         </p>
                       )}
                       {!isOpen && r.admin_response ? (
-                        <p className="mt-1 max-w-md truncate text-[11px] text-emerald-400/80">
+                        <p className="mt-1 max-w-md truncate text-[11px] text-success">
                           답변: {r.admin_response}
                         </p>
                       ) : null}
@@ -353,16 +353,16 @@ export default function AdminSupportPage() {
                             onChange={(e) => setResponseDraft(e.target.value)}
                             placeholder="답변 내용을 입력하세요"
                             rows={3}
-                            className="w-full max-w-xl rounded-md border border-neutral-700 bg-neutral-950 px-2.5 py-2 text-xs placeholder-neutral-600 outline-none focus:border-violet-500"
+                            className="w-full max-w-xl rounded-md border border-hairline bg-canvas px-2.5 py-2 text-xs placeholder-muted-soft outline-none focus:border-coral"
                           />
                           <div className="flex items-center gap-2">
-                            <span className="text-[11px] text-neutral-500">상태</span>
+                            <span className="text-[11px] text-muted-ink">상태</span>
                             <select
                               value={statusDraft}
                               onChange={(e) =>
                                 setStatusDraft(e.target.value as RequestStatus)
                               }
-                              className="rounded-md border border-neutral-700 bg-neutral-950 px-2 py-1 text-xs outline-none focus:border-violet-500"
+                              className="rounded-md border border-hairline bg-canvas px-2 py-1 text-xs outline-none focus:border-coral"
                             >
                               {STATUS_OPTIONS.map((o) => (
                                 <option key={o.value} value={o.value}>
@@ -377,7 +377,7 @@ export default function AdminSupportPage() {
                     <td className="px-4 py-3">
                       <StatusBadge status={status} />
                     </td>
-                    <td className="px-4 py-3 text-neutral-400">
+                    <td className="px-4 py-3 text-muted-ink">
                       {r.created_at ? r.created_at.slice(0, 10) : "—"}
                     </td>
                     <td className="px-4 py-3 text-right">
@@ -389,14 +389,14 @@ export default function AdminSupportPage() {
                               setResponseDraft("");
                             }}
                             disabled={busyId === r.id}
-                            className="rounded-md border border-neutral-700 px-2.5 py-1 text-[11px] text-neutral-300 transition hover:bg-neutral-800"
+                            className="rounded-md border border-hairline px-2.5 py-1 text-[11px] text-body transition hover:bg-surface-strong"
                           >
                             취소
                           </button>
                           <button
                             onClick={() => handleSave(r.id)}
                             disabled={busyId === r.id}
-                            className="rounded-md border border-violet-700/60 bg-violet-600/20 px-2.5 py-1 text-[11px] text-violet-200 transition hover:bg-violet-600/30 disabled:opacity-40"
+                            className="rounded-md border border-coral/40 bg-coral/12 px-2.5 py-1 text-[11px] text-coral-active transition hover:bg-coral/20 disabled:opacity-40"
                           >
                             {busyId === r.id ? "저장 중…" : "답변 저장"}
                           </button>
@@ -407,14 +407,14 @@ export default function AdminSupportPage() {
                             <button
                               onClick={() => handleQuickStatus(r.id, "closed")}
                               disabled={busyId === r.id}
-                              className="rounded-md border border-neutral-700 px-2.5 py-1 text-[11px] text-neutral-400 transition hover:bg-neutral-800 disabled:opacity-40"
+                              className="rounded-md border border-hairline px-2.5 py-1 text-[11px] text-muted-ink transition hover:bg-surface-strong disabled:opacity-40"
                             >
                               종료
                             </button>
                           ) : null}
                           <button
                             onClick={() => openEditor(r)}
-                            className="rounded-md border border-violet-700/60 px-2.5 py-1 text-[11px] text-violet-300 transition hover:bg-violet-950/40"
+                            className="rounded-md border border-coral/40 px-2.5 py-1 text-[11px] text-coral-active transition hover:bg-coral/[0.08]"
                           >
                             {r.admin_response ? "답변 수정" : "답변"}
                           </button>
@@ -436,19 +436,19 @@ function StatusBadge({ status }: { status: RequestStatus }) {
   const map: Record<RequestStatus, { label: string; cls: string }> = {
     pending: {
       label: "대기",
-      cls: "border-amber-700/60 bg-amber-900/30 text-amber-200",
+      cls: "border-warning/40 bg-warning/15 text-warning",
     },
     in_progress: {
       label: "처리중",
-      cls: "border-sky-800/60 bg-sky-900/30 text-sky-200",
+      cls: "border-accent-teal/40 bg-accent-teal/15 text-accent-teal",
     },
     resolved: {
       label: "해결",
-      cls: "border-emerald-800/60 bg-emerald-900/30 text-emerald-200",
+      cls: "border-success/30 bg-success/12 text-success",
     },
     closed: {
       label: "종료",
-      cls: "border-neutral-700 bg-neutral-900 text-neutral-400",
+      cls: "border-hairline bg-surface-card text-muted-ink",
     },
   };
   const m = map[status];
@@ -466,18 +466,18 @@ function StatusBadge({ status }: { status: RequestStatus }) {
 
 function CategoryBadge({ category }: { category: RequestCategory | null }) {
   const map: Record<RequestCategory, { label: string; cls: string }> = {
-    bug: { label: "버그", cls: "border-red-900/60 bg-red-950/40 text-red-300" },
+    bug: { label: "버그", cls: "border-error/40 bg-error/10 text-error" },
     feature: {
       label: "기능요청",
-      cls: "border-violet-800/60 bg-violet-900/30 text-violet-200",
+      cls: "border-coral/40 bg-coral/12 text-coral-active",
     },
     question: {
       label: "문의",
-      cls: "border-sky-800/60 bg-sky-900/30 text-sky-200",
+      cls: "border-accent-teal/40 bg-accent-teal/15 text-accent-teal",
     },
     other: {
       label: "기타",
-      cls: "border-neutral-700 bg-neutral-900 text-neutral-400",
+      cls: "border-hairline bg-surface-card text-muted-ink",
     },
   };
   const m = map[category ?? "other"];

@@ -237,25 +237,25 @@ export default function AdminMembersImportPage() {
   return (
     <AdminShell>
       <header className="mb-8">
-        <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+        <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-muted-ink">
           사용자
         </p>
-        <h1 className="text-2xl font-semibold tracking-tight">회원 일괄 등록</h1>
-        <p className="mt-1 text-sm text-neutral-400">
+        <h1 className="font-display text-3xl font-semibold tracking-tight">회원 일괄 등록</h1>
+        <p className="mt-1 text-sm text-muted-ink">
           지도자를 선택하고 회원 명단(엑셀/CSV)을 붙여넣어 회원 카드를 한 번에 만들어요.
           각 회원에게 고유 초대코드가 자동 발급됩니다.
         </p>
       </header>
 
       {error ? (
-        <div className="mb-6 rounded-md border border-red-900/50 bg-red-950/40 px-3 py-2 text-xs text-red-300">
+        <div className="mb-6 rounded-md border border-error/30 bg-error/10 px-3 py-2 text-xs text-error">
           {error}
         </div>
       ) : null}
 
       {/* 1. 지도자 선택 */}
       <section className="mb-8">
-        <h2 className="mb-2 text-sm font-semibold text-neutral-200">
+        <h2 className="mb-2 text-sm font-semibold text-ink">
           1. 지도자 선택
         </h2>
         <div className="flex flex-wrap items-center gap-2">
@@ -263,12 +263,12 @@ export default function AdminMembersImportPage() {
             value={teacherQuery}
             onChange={(e) => setTeacherQuery(e.target.value)}
             placeholder="지도자 이름·전화 검색…"
-            className="w-56 rounded-md border border-neutral-700 bg-neutral-950 px-3 py-1.5 text-sm placeholder-neutral-600 outline-none focus:border-violet-500"
+            className="w-56 rounded-md border border-hairline bg-canvas px-3 py-1.5 text-sm placeholder-muted-soft outline-none focus:border-coral"
           />
           <select
             value={teacherId}
             onChange={(e) => setTeacherId(e.target.value)}
-            className="min-w-[16rem] rounded-md border border-neutral-700 bg-neutral-950 px-3 py-1.5 text-sm outline-none focus:border-violet-500"
+            className="min-w-[16rem] rounded-md border border-hairline bg-canvas px-3 py-1.5 text-sm outline-none focus:border-coral"
           >
             <option value="">
               {loadingTeachers
@@ -282,7 +282,7 @@ export default function AdminMembersImportPage() {
             ))}
           </select>
           {selectedTeacher ? (
-            <span className="text-[11px] text-emerald-300">
+            <span className="text-[11px] text-success">
               선택됨: {selectedTeacher.name ?? selectedTeacher.user_id.slice(0, 8)}
             </span>
           ) : null}
@@ -291,11 +291,11 @@ export default function AdminMembersImportPage() {
 
       {/* 2. 명단 입력 */}
       <section className="mb-8">
-        <h2 className="mb-2 text-sm font-semibold text-neutral-200">
+        <h2 className="mb-2 text-sm font-semibold text-ink">
           2. 회원 명단 입력
         </h2>
-        <p className="mb-2 text-[11px] text-neutral-500">
-          형식: <code className="text-neutral-300">이름, 전화(선택), 메모(선택)</code> ·
+        <p className="mb-2 text-[11px] text-muted-ink">
+          형식: <code className="text-body">이름, 전화(선택), 메모(선택)</code> ·
           한 줄에 한 명. 엑셀에서 복사해 붙여넣으면 탭 구분도 인식합니다. 첫 줄이 머리글이면
           자동 제외됩니다.
         </p>
@@ -308,18 +308,18 @@ export default function AdminMembersImportPage() {
               const f = e.target.files?.[0];
               if (f) handleFile(f);
             }}
-            className="text-xs text-neutral-400 file:mr-3 file:rounded-md file:border file:border-neutral-700 file:bg-neutral-900 file:px-3 file:py-1 file:text-xs file:text-neutral-200"
+            className="text-xs text-muted-ink file:mr-3 file:rounded-md file:border file:border-hairline file:bg-surface-card file:px-3 file:py-1 file:text-xs file:text-ink"
           />
           <button
             onClick={() => setText("이름,전화,메모\n홍길동,01012345678,신규\n김요가,,VIP")}
-            className="rounded-md border border-neutral-700 px-2.5 py-1 text-[11px] text-neutral-400 transition hover:bg-neutral-800"
+            className="rounded-md border border-hairline px-2.5 py-1 text-[11px] text-muted-ink transition hover:bg-surface-strong"
           >
             예시 채우기
           </button>
           {text ? (
             <button
               onClick={reset}
-              className="rounded-md border border-neutral-700 px-2.5 py-1 text-[11px] text-neutral-400 transition hover:bg-neutral-800"
+              className="rounded-md border border-hairline px-2.5 py-1 text-[11px] text-muted-ink transition hover:bg-surface-strong"
             >
               비우기
             </button>
@@ -330,7 +330,7 @@ export default function AdminMembersImportPage() {
           onChange={(e) => setText(e.target.value)}
           placeholder={"홍길동,01012345678,신규 회원\n김요가,,VIP"}
           rows={8}
-          className="w-full rounded-md border border-neutral-700 bg-neutral-950 px-3 py-2 font-mono text-xs placeholder-neutral-600 outline-none focus:border-violet-500"
+          className="w-full rounded-md border border-hairline bg-canvas px-3 py-2 font-mono text-xs placeholder-muted-soft outline-none focus:border-coral"
         />
       </section>
 
@@ -338,16 +338,16 @@ export default function AdminMembersImportPage() {
       {parsed.length > 0 ? (
         <section className="mb-8">
           <div className="mb-2 flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-neutral-200">
+            <h2 className="text-sm font-semibold text-ink">
               3. 미리보기
-              <span className="ml-2 text-[11px] font-normal text-neutral-500">
+              <span className="ml-2 text-[11px] font-normal text-muted-ink">
                 유효 {validRows.length} · 제외 {invalidCount}
               </span>
             </h2>
           </div>
-          <div className="overflow-hidden rounded-lg border border-neutral-800">
+          <div className="overflow-hidden rounded-lg border border-hairline">
             <table className="w-full text-sm">
-              <thead className="bg-neutral-900/60 text-left text-[11px] uppercase tracking-wider text-neutral-500">
+              <thead className="bg-surface-soft text-left text-[11px] uppercase tracking-wider text-muted-ink">
                 <tr>
                   <th className="px-4 py-2">#</th>
                   <th className="px-4 py-2">이름</th>
@@ -358,18 +358,18 @@ export default function AdminMembersImportPage() {
               </thead>
               <tbody>
                 {parsed.slice(0, 100).map((r, i) => (
-                  <tr key={i} className="border-t border-neutral-800">
-                    <td className="px-4 py-2 text-neutral-500">{i + 1}</td>
-                    <td className="px-4 py-2 text-neutral-100">{r.name || "—"}</td>
-                    <td className="px-4 py-2 text-neutral-300">{r.phone || "—"}</td>
-                    <td className="px-4 py-2 text-neutral-400">{r.memo || "—"}</td>
+                  <tr key={i} className="border-t border-hairline">
+                    <td className="px-4 py-2 text-muted-ink">{i + 1}</td>
+                    <td className="px-4 py-2 text-ink">{r.name || "—"}</td>
+                    <td className="px-4 py-2 text-body">{r.phone || "—"}</td>
+                    <td className="px-4 py-2 text-muted-ink">{r.memo || "—"}</td>
                     <td className="px-4 py-2">
                       {r.error ? (
-                        <span className="text-[11px] text-red-300">{r.error} · 제외</span>
+                        <span className="text-[11px] text-error">{r.error} · 제외</span>
                       ) : r.dup ? (
-                        <span className="text-[11px] text-amber-300">파일 내 전화 중복</span>
+                        <span className="text-[11px] text-warning">파일 내 전화 중복</span>
                       ) : (
-                        <span className="text-[11px] text-emerald-300">등록 대상</span>
+                        <span className="text-[11px] text-success">등록 대상</span>
                       )}
                     </td>
                   </tr>
@@ -377,7 +377,7 @@ export default function AdminMembersImportPage() {
               </tbody>
             </table>
             {parsed.length > 100 ? (
-              <p className="border-t border-neutral-800 px-4 py-2 text-[11px] text-neutral-500">
+              <p className="border-t border-hairline px-4 py-2 text-[11px] text-muted-ink">
                 미리보기는 100행까지만 표시합니다. (전체 {parsed.length}행 등록됩니다)
               </p>
             ) : null}
@@ -387,7 +387,7 @@ export default function AdminMembersImportPage() {
 
       {/* 4. 동의 + 실행 */}
       <section className="mb-8">
-        <label className="mb-3 flex items-start gap-2 text-xs text-neutral-300">
+        <label className="mb-3 flex items-start gap-2 text-xs text-body">
           <input
             type="checkbox"
             checked={withConsent}
@@ -403,7 +403,7 @@ export default function AdminMembersImportPage() {
         <button
           onClick={handleSubmit}
           disabled={submitting || !teacherId || validRows.length === 0}
-          className="rounded-md border border-violet-700/60 bg-violet-600/20 px-4 py-2 text-sm text-violet-200 transition hover:bg-violet-600/30 disabled:opacity-40"
+          className="rounded-md border border-coral/40 bg-coral/12 px-4 py-2 text-sm text-coral-active transition hover:bg-coral/20 disabled:opacity-40"
         >
           {submitting
             ? "등록 중…"
@@ -413,29 +413,29 @@ export default function AdminMembersImportPage() {
 
       {/* 5. 결과 */}
       {result ? (
-        <section className="rounded-lg border border-emerald-900/50 bg-emerald-950/20 p-4">
+        <section className="rounded-lg border border-success/30 bg-success/12 p-4">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-emerald-200">
+            <h2 className="text-sm font-semibold text-success">
               등록 완료 — 생성 {result.created_count} · 건너뜀 {result.skipped_count}
             </h2>
             {result.created.length > 0 ? (
               <button
                 onClick={downloadCodes}
-                className="rounded-md border border-emerald-700/60 px-3 py-1 text-[11px] text-emerald-200 transition hover:bg-emerald-900/40"
+                className="rounded-md border border-success/30 px-3 py-1 text-[11px] text-success transition hover:bg-success/12"
               >
                 초대코드 CSV 다운로드
               </button>
             ) : null}
           </div>
           {result.skipped_count > 0 ? (
-            <p className="mb-3 text-[11px] text-neutral-400">
+            <p className="mb-3 text-[11px] text-muted-ink">
               건너뜀: 이름 누락 또는 동일 지도자에 같은 전화번호가 이미 존재하는 회원.
             </p>
           ) : null}
           {result.created.length > 0 ? (
-            <div className="overflow-hidden rounded-md border border-neutral-800">
+            <div className="overflow-hidden rounded-md border border-hairline">
               <table className="w-full text-sm">
-                <thead className="bg-neutral-900/60 text-left text-[11px] uppercase tracking-wider text-neutral-500">
+                <thead className="bg-surface-soft text-left text-[11px] uppercase tracking-wider text-muted-ink">
                   <tr>
                     <th className="px-4 py-2">이름</th>
                     <th className="px-4 py-2">전화</th>
@@ -444,10 +444,10 @@ export default function AdminMembersImportPage() {
                 </thead>
                 <tbody>
                   {result.created.map((c) => (
-                    <tr key={c.id} className="border-t border-neutral-800">
-                      <td className="px-4 py-2 text-neutral-100">{c.name}</td>
-                      <td className="px-4 py-2 text-neutral-300">{c.phone ?? "—"}</td>
-                      <td className="px-4 py-2 font-mono text-violet-300">
+                    <tr key={c.id} className="border-t border-hairline">
+                      <td className="px-4 py-2 text-ink">{c.name}</td>
+                      <td className="px-4 py-2 text-body">{c.phone ?? "—"}</td>
+                      <td className="px-4 py-2 font-mono text-coral-active">
                         {c.invite_code}
                       </td>
                     </tr>

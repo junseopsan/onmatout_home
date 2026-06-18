@@ -48,20 +48,20 @@ export default function AdminLoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-6 py-10">
-      <div className="w-full max-w-sm rounded-2xl border border-neutral-800 bg-neutral-900 p-8">
+      <div className="w-full max-w-sm rounded-2xl border border-hairline bg-surface-card p-8">
         <div className="mb-8">
-          <p className="mb-1 text-xs uppercase tracking-[0.18em] text-neutral-500">
+          <p className="mb-1 text-xs uppercase tracking-[0.18em] text-muted-ink">
             ONMATOUT
           </p>
-          <h1 className="text-2xl font-semibold tracking-tight">어드민 로그인</h1>
-          <p className="mt-2 text-sm text-neutral-400">
+          <h1 className="font-display text-3xl font-semibold tracking-tight">어드민 로그인</h1>
+          <p className="mt-2 text-sm text-muted-ink">
             전화번호로 로그인하세요.
           </p>
         </div>
 
         <div className="space-y-4">
           <label className="block">
-            <span className="mb-1 block text-xs font-medium text-neutral-400">
+            <span className="mb-1 block text-xs font-medium text-muted-ink">
               전화번호
             </span>
             <input
@@ -71,13 +71,13 @@ export default function AdminLoginPage() {
               autoComplete="tel"
               inputMode="tel"
               disabled={stage === "code"}
-              className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-3 py-2.5 text-sm placeholder-neutral-600 outline-none focus:border-violet-500 disabled:opacity-60"
+              className="w-full rounded-lg border border-hairline bg-canvas px-3 py-2.5 text-sm placeholder-muted-soft outline-none focus:border-coral disabled:opacity-60"
             />
           </label>
 
           {stage === "code" ? (
             <label className="block">
-              <span className="mb-1 block text-xs font-medium text-neutral-400">
+              <span className="mb-1 block text-xs font-medium text-muted-ink">
                 인증번호
               </span>
               <input
@@ -86,10 +86,10 @@ export default function AdminLoginPage() {
                 placeholder="000000"
                 inputMode="numeric"
                 maxLength={6}
-                className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-3 py-2.5 text-sm tracking-widest placeholder-neutral-600 outline-none focus:border-violet-500"
+                className="w-full rounded-lg border border-hairline bg-canvas px-3 py-2.5 text-sm tracking-widest placeholder-muted-soft outline-none focus:border-coral"
               />
               {hint ? (
-                <span className="mt-1 block text-[11px] text-neutral-500">
+                <span className="mt-1 block text-[11px] text-muted-ink">
                   {hint}
                 </span>
               ) : null}
@@ -97,7 +97,7 @@ export default function AdminLoginPage() {
           ) : null}
 
           {error ? (
-            <div className="rounded-md border border-red-900/50 bg-red-950/40 px-3 py-2 text-xs text-red-300">
+            <div className="rounded-md border border-error/30 bg-error/10 px-3 py-2 text-xs text-error">
               {error}
             </div>
           ) : null}
@@ -106,7 +106,7 @@ export default function AdminLoginPage() {
             <button
               onClick={handleRequestOtp}
               disabled={busy || phone.trim().length < 9}
-              className="w-full rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-violet-500 disabled:opacity-40"
+              className="w-full rounded-lg bg-coral px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-coral-active disabled:opacity-40"
             >
               {busy ? "전송 중…" : "인증번호 받기"}
             </button>
@@ -115,7 +115,7 @@ export default function AdminLoginPage() {
               <button
                 onClick={handleVerify}
                 disabled={busy || code.length < 6}
-                className="w-full rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-violet-500 disabled:opacity-40"
+                className="w-full rounded-lg bg-coral px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-coral-active disabled:opacity-40"
               >
                 {busy ? "확인 중…" : "로그인"}
               </button>
@@ -127,7 +127,7 @@ export default function AdminLoginPage() {
                   setHint(null);
                 }}
                 disabled={busy}
-                className="w-full rounded-lg border border-neutral-700 bg-transparent px-4 py-2 text-xs text-neutral-400 transition hover:bg-neutral-800 disabled:opacity-40"
+                className="w-full rounded-lg border border-hairline bg-transparent px-4 py-2 text-xs text-muted-ink transition hover:bg-surface-strong disabled:opacity-40"
               >
                 번호 다시 입력
               </button>

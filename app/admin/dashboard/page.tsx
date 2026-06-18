@@ -178,24 +178,24 @@ export default function AdminDashboardPage() {
     <AdminShell>
       <header className="mb-8 flex items-end justify-between gap-4">
         <div>
-          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-muted-ink">
             대시보드
           </p>
-          <h1 className="text-2xl font-semibold tracking-tight">운영 대시보드</h1>
-          <p className="mt-1 text-sm text-neutral-400">
+          <h1 className="font-display text-3xl font-semibold tracking-tight">운영 대시보드</h1>
+          <p className="mt-1 text-sm text-muted-ink">
             핵심 지표 요약 (신규·AI는 최근 {PERIOD_DAYS}일 기준).
           </p>
         </div>
         <button
           onClick={load}
-          className="rounded-md border border-neutral-700 px-3 py-1.5 text-xs text-neutral-300 transition hover:bg-neutral-800"
+          className="rounded-md border border-hairline px-3 py-1.5 text-xs text-body transition hover:bg-surface-strong"
         >
           새로고침
         </button>
       </header>
 
       {error ? (
-        <div className="mb-6 rounded-md border border-red-900/50 bg-red-950/40 px-3 py-2 text-xs text-red-300">
+        <div className="mb-6 rounded-md border border-error/30 bg-error/10 px-3 py-2 text-xs text-error">
           {error}
         </div>
       ) : null}
@@ -247,17 +247,17 @@ export default function AdminDashboardPage() {
           title={`일별 신규 가입 (최근 ${PERIOD_DAYS}일)`}
           data={signupTrend}
           loading={loading}
-          color="#38bdf8"
+          color="#5e6ad2"
         />
         <TrendCard
           title={`일별 AI 답변 (최근 ${PERIOD_DAYS}일)`}
           data={aiTrend}
           loading={loading}
-          color="#8b5cf6"
+          color="#828fff"
         />
       </section>
 
-      <p className="mt-6 text-[11px] text-neutral-600">
+      <p className="mt-6 text-[11px] text-muted-soft">
         ※ 일부 지표가 비어 있으면 해당 테이블의 어드민 RLS(SQL) 적용 여부를 확인하세요.
       </p>
     </AdminShell>
@@ -295,10 +295,10 @@ function StatCard({
   href?: string;
 }) {
   const toneCls = {
-    neutral: "text-neutral-100",
-    sky: "text-sky-300",
-    amber: "text-amber-300",
-    red: "text-red-300",
+    neutral: "text-ink",
+    sky: "text-accent-teal",
+    amber: "text-warning",
+    red: "text-error",
   }[tone];
   const display =
     loading && value === undefined
@@ -308,9 +308,9 @@ function StatCard({
         : value.toLocaleString();
 
   const inner = (
-    <div className="rounded-lg border border-neutral-800 bg-neutral-900/30 px-4 py-3 transition hover:border-neutral-700">
-      <p className="text-[11px] uppercase tracking-wider text-neutral-500">{label}</p>
-      <p className={"mt-1 text-2xl font-semibold tracking-tight " + toneCls}>{display}</p>
+    <div className="rounded-lg border border-hairline bg-surface-soft px-4 py-3 transition hover:border-muted-soft">
+      <p className="text-[11px] uppercase tracking-wider text-muted-ink">{label}</p>
+      <p className={"mt-1 font-display text-3xl font-semibold tracking-tight " + toneCls}>{display}</p>
     </div>
   );
 
@@ -336,44 +336,45 @@ function TrendCard({
 }) {
   const empty = !loading && data.every((d) => d.count === 0);
   return (
-    <div className="rounded-lg border border-neutral-800 bg-neutral-900/30 p-4">
-      <h2 className="mb-3 text-sm font-semibold text-neutral-200">{title}</h2>
+    <div className="rounded-lg border border-hairline bg-surface-soft p-4">
+      <h2 className="mb-3 text-sm font-semibold text-ink">{title}</h2>
       {loading ? (
-        <div className="flex h-48 items-center justify-center text-sm text-neutral-500">
+        <div className="flex h-48 items-center justify-center text-sm text-muted-ink">
           불러오는 중…
         </div>
       ) : empty ? (
-        <div className="flex h-48 items-center justify-center text-sm text-neutral-500">
+        <div className="flex h-48 items-center justify-center text-sm text-muted-ink">
           데이터가 없어요.
         </div>
       ) : (
         <ResponsiveContainer width="100%" height={192}>
           <BarChart data={data} margin={{ top: 4, right: 8, bottom: 0, left: -16 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#262626" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#30323a" vertical={false} />
             <XAxis
               dataKey="day"
-              tick={{ fill: "#737373", fontSize: 11 }}
+              tick={{ fill: "#9097a3", fontSize: 11 }}
               interval="preserveStartEnd"
               minTickGap={16}
-              axisLine={{ stroke: "#404040" }}
+              axisLine={{ stroke: "#30323a" }}
               tickLine={false}
             />
             <YAxis
               allowDecimals={false}
-              tick={{ fill: "#737373", fontSize: 11 }}
+              tick={{ fill: "#9097a3", fontSize: 11 }}
               axisLine={false}
               tickLine={false}
               width={36}
             />
             <Tooltip
-              cursor={{ fill: "#ffffff08" }}
+              cursor={{ fill: "#ffffff0f" }}
               contentStyle={{
-                background: "#0a0a0a",
-                border: "1px solid #404040",
+                background: "#232429",
+                border: "1px solid #30323a",
                 borderRadius: 8,
                 fontSize: 12,
+                color: "#f7f8f8",
               }}
-              labelStyle={{ color: "#a3a3a3" }}
+              labelStyle={{ color: "#9097a3" }}
             />
             <Bar dataKey="count" fill={color} radius={[3, 3, 0, 0]} />
           </BarChart>

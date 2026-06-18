@@ -146,11 +146,11 @@ export default function AdminTeachersPage() {
     <AdminShell>
       <header className="mb-8 flex items-end justify-between gap-4">
         <div>
-          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-muted-ink">
             지도자
           </p>
-          <h1 className="text-2xl font-semibold tracking-tight">지도자 관리</h1>
-          <p className="mt-1 text-sm text-neutral-400">
+          <h1 className="font-display text-3xl font-semibold tracking-tight">지도자 관리</h1>
+          <p className="mt-1 text-sm text-muted-ink">
             스튜디오별 원장과 지도자 명단입니다. 문제가 있는 지도자는 강제 해제할
             수 있어요.
           </p>
@@ -160,11 +160,11 @@ export default function AdminTeachersPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="검색…"
-            className="w-60 rounded-md border border-neutral-700 bg-neutral-950 px-3 py-1.5 text-sm placeholder-neutral-600 outline-none focus:border-violet-500"
+            className="w-60 rounded-md border border-hairline bg-canvas px-3 py-1.5 text-sm placeholder-muted-soft outline-none focus:border-coral"
           />
           <button
             onClick={load}
-            className="rounded-md border border-neutral-700 px-3 py-1.5 text-xs text-neutral-300 transition hover:bg-neutral-800"
+            className="rounded-md border border-hairline px-3 py-1.5 text-xs text-body transition hover:bg-surface-strong"
           >
             새로고침
           </button>
@@ -172,15 +172,15 @@ export default function AdminTeachersPage() {
       </header>
 
       {error ? (
-        <div className="mb-6 rounded-md border border-red-900/50 bg-red-950/40 px-3 py-2 text-xs text-red-300">
+        <div className="mb-6 rounded-md border border-error/30 bg-error/10 px-3 py-2 text-xs text-error">
           {error}
         </div>
       ) : null}
 
       {loading ? (
-        <p className="py-12 text-center text-sm text-neutral-500">불러오는 중…</p>
+        <p className="py-12 text-center text-sm text-muted-ink">불러오는 중…</p>
       ) : filtered.length === 0 ? (
-        <p className="py-12 text-center text-sm text-neutral-500">
+        <p className="py-12 text-center text-sm text-muted-ink">
           조건에 맞는 스튜디오가 없어요.
         </p>
       ) : (
@@ -188,42 +188,42 @@ export default function AdminTeachersPage() {
           {filtered.map((r) => (
             <div
               key={r.studio.id}
-              className="overflow-hidden rounded-lg border border-neutral-800 bg-neutral-950"
+              className="overflow-hidden rounded-lg border border-hairline bg-canvas"
             >
-              <div className="flex items-center justify-between gap-4 border-b border-neutral-800 px-4 py-3">
+              <div className="flex items-center justify-between gap-4 border-b border-hairline px-4 py-3">
                 <div>
-                  <p className="text-sm font-semibold text-neutral-100">
+                  <p className="text-sm font-semibold text-ink">
                     {r.studio.name}
                   </p>
-                  <p className="mt-0.5 text-[11px] text-neutral-500">
+                  <p className="mt-0.5 text-[11px] text-muted-ink">
                     {r.studio.location ?? "주소 미기재"}
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-[11px] uppercase tracking-wider text-neutral-500">
+                  <p className="text-[11px] uppercase tracking-wider text-muted-ink">
                     원장
                   </p>
-                  <p className="text-sm text-neutral-200">
+                  <p className="text-sm text-ink">
                     {r.owner?.name ?? "—"}
                   </p>
-                  <p className="text-[11px] text-neutral-500">
+                  <p className="text-[11px] text-muted-ink">
                     {r.owner?.phone ?? r.studio.owner_id.slice(0, 8)}
                   </p>
                 </div>
               </div>
               <div>
-                <div className="flex items-baseline justify-between border-b border-neutral-800 px-4 py-2">
-                  <p className="text-[11px] uppercase tracking-wider text-neutral-500">
+                <div className="flex items-baseline justify-between border-b border-hairline px-4 py-2">
+                  <p className="text-[11px] uppercase tracking-wider text-muted-ink">
                     지도자 ({r.teachers.length})
                   </p>
                 </div>
                 {r.teachers.length === 0 ? (
-                  <p className="px-4 py-4 text-xs text-neutral-500">
+                  <p className="px-4 py-4 text-xs text-muted-ink">
                     등록된 지도자가 없어요.
                   </p>
                 ) : (
                   <table className="w-full text-sm">
-                    <thead className="text-left text-[11px] uppercase tracking-wider text-neutral-500">
+                    <thead className="text-left text-[11px] uppercase tracking-wider text-muted-ink">
                       <tr>
                         <th className="px-4 py-2">이름</th>
                         <th className="px-4 py-2">전화</th>
@@ -238,12 +238,12 @@ export default function AdminTeachersPage() {
                         return (
                           <tr
                             key={st.teacher_id}
-                            className="border-t border-neutral-900"
+                            className="border-t border-hairline"
                           >
-                            <td className="px-4 py-2 text-neutral-200">
+                            <td className="px-4 py-2 text-ink">
                               {info?.name ?? "—"}
                             </td>
-                            <td className="px-4 py-2 text-neutral-400">
+                            <td className="px-4 py-2 text-muted-ink">
                               {info?.phone ?? st.teacher_id.slice(0, 8)}
                             </td>
                             <td className="px-4 py-2">
@@ -251,14 +251,14 @@ export default function AdminTeachersPage() {
                                 className={
                                   "inline-flex items-center rounded-md border px-2 py-0.5 text-[11px] font-medium " +
                                   (st.status === "active"
-                                    ? "border-emerald-800/60 bg-emerald-900/30 text-emerald-200"
-                                    : "border-red-900/60 bg-red-950/40 text-red-300")
+                                    ? "border-success/30 bg-success/12 text-success"
+                                    : "border-error/40 bg-error/10 text-error")
                                 }
                               >
                                 {st.status === "active" ? "active" : "suspended"}
                               </span>
                             </td>
-                            <td className="px-4 py-2 text-neutral-500">
+                            <td className="px-4 py-2 text-muted-ink">
                               {st.added_at.slice(0, 10)}
                             </td>
                             <td className="px-4 py-2 text-right">
@@ -267,7 +267,7 @@ export default function AdminTeachersPage() {
                                   handleRemove(st.studio_id, st.teacher_id)
                                 }
                                 disabled={busy === busyKey}
-                                className="rounded-md border border-red-900/60 px-2.5 py-1 text-[11px] text-red-300 transition hover:bg-red-950/40 disabled:opacity-40"
+                                className="rounded-md border border-error/40 px-2.5 py-1 text-[11px] text-error transition hover:bg-error/10 disabled:opacity-40"
                               >
                                 {busy === busyKey ? "처리 중…" : "강제 해제"}
                               </button>

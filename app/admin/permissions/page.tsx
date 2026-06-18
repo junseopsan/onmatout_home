@@ -234,43 +234,43 @@ function PermissionsInner() {
     <>
       <header className="mb-8 flex items-end justify-between gap-4">
         <div>
-          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-muted-ink">
             권한
           </p>
-          <h1 className="text-2xl font-semibold tracking-tight">권한 관리</h1>
-          <p className="mt-1 text-sm text-neutral-400">
+          <h1 className="font-display text-3xl font-semibold tracking-tight">권한 관리</h1>
+          <p className="mt-1 text-sm text-muted-ink">
             BO 접근 사용자와 역할, 메뉴 노출 권한을 관리하세요. (수퍼관리자 전용)
           </p>
         </div>
         <button
           onClick={load}
-          className="rounded-md border border-neutral-700 px-3 py-1.5 text-xs text-neutral-300 transition hover:bg-neutral-800"
+          className="rounded-md border border-hairline px-3 py-1.5 text-xs text-body transition hover:bg-surface-strong"
         >
           새로고침
         </button>
       </header>
 
       {error ? (
-        <div className="mb-6 rounded-md border border-red-900/50 bg-red-950/40 px-3 py-2 text-xs text-red-300">
+        <div className="mb-6 rounded-md border border-error/30 bg-error/10 px-3 py-2 text-xs text-error">
           {error}
         </div>
       ) : null}
 
       {/* 사용자 추가 */}
-      <section className="mb-8 rounded-lg border border-neutral-800 bg-neutral-900/30 p-4">
-        <h2 className="mb-2 text-sm font-semibold text-neutral-200">BO 사용자 추가</h2>
+      <section className="mb-8 rounded-lg border border-hairline bg-surface-soft p-4">
+        <h2 className="mb-2 text-sm font-semibold text-ink">BO 사용자 추가</h2>
         <div className="flex flex-wrap items-center gap-2">
           <input
             value={searchQ}
             onChange={(e) => setSearchQ(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && runSearch()}
             placeholder="추가할 사용자 이름·전화 검색…"
-            className="w-64 rounded-md border border-neutral-700 bg-neutral-950 px-3 py-1.5 text-sm placeholder-neutral-600 outline-none focus:border-violet-500"
+            className="w-64 rounded-md border border-hairline bg-canvas px-3 py-1.5 text-sm placeholder-muted-soft outline-none focus:border-coral"
           />
           <button
             onClick={runSearch}
             disabled={searching}
-            className="rounded-md border border-violet-700/60 bg-violet-600/20 px-3 py-1.5 text-xs text-violet-200 transition hover:bg-violet-600/30 disabled:opacity-40"
+            className="rounded-md border border-coral/40 bg-coral/12 px-3 py-1.5 text-xs text-coral-active transition hover:bg-coral/20 disabled:opacity-40"
           >
             {searching ? "검색 중…" : "검색"}
           </button>
@@ -280,11 +280,11 @@ function PermissionsInner() {
             {searchResults.map((u) => (
               <div
                 key={u.user_id}
-                className="flex items-center justify-between rounded-md border border-neutral-800 px-3 py-2"
+                className="flex items-center justify-between rounded-md border border-hairline px-3 py-2"
               >
                 <div>
-                  <span className="text-sm text-neutral-100">{u.name ?? "—"}</span>
-                  <span className="ml-2 text-[11px] text-neutral-500">
+                  <span className="text-sm text-ink">{u.name ?? "—"}</span>
+                  <span className="ml-2 text-[11px] text-muted-ink">
                     {u.phone ?? u.user_id.slice(0, 8)}
                   </span>
                 </div>
@@ -292,14 +292,14 @@ function PermissionsInner() {
                   <button
                     onClick={() => addUser(u.user_id, "studio_owner")}
                     disabled={busyId === u.user_id}
-                    className="rounded-md border border-sky-800/60 px-2.5 py-1 text-[11px] text-sky-300 transition hover:bg-sky-950/40 disabled:opacity-40"
+                    className="rounded-md border border-accent-teal/40 px-2.5 py-1 text-[11px] text-accent-teal transition hover:bg-accent-teal/12 disabled:opacity-40"
                   >
                     원장으로 추가
                   </button>
                   <button
                     onClick={() => addUser(u.user_id, "super_admin")}
                     disabled={busyId === u.user_id}
-                    className="rounded-md border border-violet-700/60 px-2.5 py-1 text-[11px] text-violet-300 transition hover:bg-violet-950/40 disabled:opacity-40"
+                    className="rounded-md border border-coral/40 px-2.5 py-1 text-[11px] text-coral-active transition hover:bg-coral/[0.08] disabled:opacity-40"
                   >
                     수퍼관리자로 추가
                   </button>
@@ -312,12 +312,12 @@ function PermissionsInner() {
 
       {/* BO 사용자 목록 */}
       <section>
-        <h2 className="mb-3 text-sm font-semibold text-neutral-200">
+        <h2 className="mb-3 text-sm font-semibold text-ink">
           BO 사용자 ({boUsers.length})
         </h2>
-        <div className="overflow-hidden rounded-lg border border-neutral-800">
+        <div className="overflow-hidden rounded-lg border border-hairline">
           <table className="w-full text-sm">
-            <thead className="bg-neutral-900/60 text-left text-[11px] uppercase tracking-wider text-neutral-500">
+            <thead className="bg-surface-soft text-left text-[11px] uppercase tracking-wider text-muted-ink">
               <tr>
                 <th className="px-4 py-2.5">사용자</th>
                 <th className="px-4 py-2.5">역할</th>
@@ -328,7 +328,7 @@ function PermissionsInner() {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={4} className="px-4 py-8 text-center text-neutral-500">
+                  <td colSpan={4} className="px-4 py-8 text-center text-muted-ink">
                     불러오는 중…
                   </td>
                 </tr>
@@ -341,15 +341,15 @@ function PermissionsInner() {
                 const open = expanded === u.user_id;
                 return (
                   <Fragment key={u.user_id}>
-                    <tr className="border-t border-neutral-800 align-top">
+                    <tr className="border-t border-hairline align-top">
                       <td className="px-4 py-3">
-                        <p className="text-neutral-100">
+                        <p className="text-ink">
                           {ui?.name ?? "—"}
                           {isSelf ? (
-                            <span className="ml-1 text-[10px] text-violet-400">(나)</span>
+                            <span className="ml-1 text-[10px] text-coral-active">(나)</span>
                           ) : null}
                         </p>
-                        <p className="text-[11px] text-neutral-500">
+                        <p className="text-[11px] text-muted-ink">
                           {ui?.phone ?? u.user_id.slice(0, 8)}
                         </p>
                       </td>
@@ -358,7 +358,7 @@ function PermissionsInner() {
                           value={u.role}
                           onChange={(e) => changeRole(u, e.target.value as BoRole)}
                           disabled={busyId === u.user_id}
-                          className="rounded-md border border-neutral-700 bg-neutral-950 px-2 py-1 text-xs outline-none focus:border-violet-500"
+                          className="rounded-md border border-hairline bg-canvas px-2 py-1 text-xs outline-none focus:border-coral"
                         >
                           <option value="super_admin">{ROLE_LABEL.super_admin}</option>
                           <option value="studio_owner">{ROLE_LABEL.studio_owner}</option>
@@ -367,7 +367,7 @@ function PermissionsInner() {
                       <td className="px-4 py-3">
                         <button
                           onClick={() => setExpanded(open ? null : u.user_id)}
-                          className="rounded-md border border-neutral-700 px-2.5 py-1 text-[11px] text-neutral-300 transition hover:bg-neutral-800"
+                          className="rounded-md border border-hairline px-2.5 py-1 text-[11px] text-body transition hover:bg-surface-strong"
                         >
                           {effective.size}개 메뉴 {open ? "▲" : "▼"}
                         </button>
@@ -376,16 +376,16 @@ function PermissionsInner() {
                         <button
                           onClick={() => removeUser(u)}
                           disabled={busyId === u.user_id || isSelf}
-                          className="rounded-md border border-red-900/60 px-2.5 py-1 text-[11px] text-red-300 transition hover:bg-red-950/40 disabled:opacity-40"
+                          className="rounded-md border border-error/40 px-2.5 py-1 text-[11px] text-error transition hover:bg-error/10 disabled:opacity-40"
                         >
                           제거
                         </button>
                       </td>
                     </tr>
                     {open ? (
-                      <tr className="bg-neutral-950/40">
+                      <tr className="bg-canvas/40">
                         <td colSpan={4} className="px-4 py-3">
-                          <p className="mb-2 text-[11px] text-neutral-500">
+                          <p className="mb-2 text-[11px] text-muted-ink">
                             메뉴 노출 권한 (체크 = 노출). 역할 기본과 다르면 예외로
                             저장됩니다.
                           </p>
@@ -402,8 +402,8 @@ function PermissionsInner() {
                                   className={
                                     "rounded-md border px-2.5 py-1 text-[11px] transition disabled:opacity-40 " +
                                     (on
-                                      ? "border-emerald-800/60 bg-emerald-900/30 text-emerald-200"
-                                      : "border-neutral-700 text-neutral-500 hover:bg-neutral-800")
+                                      ? "border-success/30 bg-success/12 text-success"
+                                      : "border-hairline text-muted-ink hover:bg-surface-strong")
                                   }
                                   title={
                                     overridden ? "역할 기본과 다름(예외 적용)" : "역할 기본"
@@ -412,7 +412,7 @@ function PermissionsInner() {
                                   {on ? "✓ " : ""}
                                   {m.label}
                                   {overridden ? (
-                                    <span className="ml-1 text-amber-400">*</span>
+                                    <span className="ml-1 text-warning">*</span>
                                   ) : null}
                                 </button>
                               );
@@ -427,8 +427,8 @@ function PermissionsInner() {
             </tbody>
           </table>
         </div>
-        <p className="mt-3 text-[11px] text-neutral-600">
-          ※ <span className="text-amber-400">*</span> = 역할 기본값과 다른 예외 설정. 원장은
+        <p className="mt-3 text-[11px] text-muted-soft">
+          ※ <span className="text-warning">*</span> = 역할 기본값과 다른 예외 설정. 원장은
           데이터도 본인 요가원으로 제한됩니다(메뉴를 추가로 켜도 다른 요가원 데이터는 보이지
           않음).
         </p>

@@ -294,26 +294,26 @@ export default function AdminKnowledgePage() {
     <AdminShell>
       <header className="mb-8 flex items-end justify-between gap-4">
         <div>
-          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-muted-ink">
             AI 지식베이스
           </p>
-          <h1 className="text-2xl font-semibold tracking-tight">
+          <h1 className="font-display text-3xl font-semibold tracking-tight">
             RAG 문서 관리
           </h1>
-          <p className="mt-1 text-sm text-neutral-400">
+          <p className="mt-1 text-sm text-muted-ink">
             문서를 추가하면 자동으로 임베딩되어 `yoga-ask` 검색 대상에 포함됩니다.
           </p>
         </div>
         <div className="flex gap-2">
           <Link
             href="/admin/knowledge/pdf"
-            className="rounded-md border border-violet-700/60 bg-violet-600/20 px-3 py-1.5 text-xs text-violet-200 transition hover:bg-violet-600/30"
+            className="rounded-md border border-coral/40 bg-coral/12 px-3 py-1.5 text-xs text-coral-active transition hover:bg-coral/20"
           >
             + PDF로 추가
           </Link>
           <button
             onClick={load}
-            className="rounded-md border border-neutral-700 px-3 py-1.5 text-xs text-neutral-300 transition hover:bg-neutral-800"
+            className="rounded-md border border-hairline px-3 py-1.5 text-xs text-body transition hover:bg-surface-strong"
           >
             새로고침
           </button>
@@ -321,18 +321,18 @@ export default function AdminKnowledgePage() {
       </header>
 
       {error ? (
-        <div className="mb-6 rounded-md border border-red-900/50 bg-red-950/40 px-3 py-2 text-xs text-red-300">
+        <div className="mb-6 rounded-md border border-error/30 bg-error/10 px-3 py-2 text-xs text-error">
           {error}
         </div>
       ) : null}
 
-      <section className="mb-6 rounded-lg border border-violet-900/60 bg-violet-950/20 p-5">
+      <section className="mb-6 rounded-lg border border-coral/40 bg-coral/[0.08] p-5">
         <div className="mb-3 flex items-center justify-between gap-4">
           <div>
-            <h2 className="text-sm font-semibold text-neutral-200">
+            <h2 className="text-sm font-semibold text-ink">
               아사나 일괄 ingest
             </h2>
-            <p className="mt-1 text-[11px] text-neutral-400">
+            <p className="mt-1 text-[11px] text-muted-ink">
               {asanasTotal !== null && asanasIngested !== null
                 ? `전체 ${asanasTotal}개 · 이미 임베딩 ${asanasIngested}개 · 남은 ${Math.max(0, asanasTotal - asanasIngested)}개`
                 : "아사나 통계 로딩 중…"}
@@ -347,7 +347,7 @@ export default function AdminKnowledgePage() {
               asanasTotal === null ||
               (asanasIngested !== null && asanasIngested >= (asanasTotal ?? 0))
             }
-            className="rounded-md bg-violet-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-violet-500 disabled:opacity-40"
+            className="rounded-md bg-coral px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-coral-active disabled:opacity-40"
           >
             {bulk.running
               ? `진행 중 ${bulk.done}/${bulk.total}`
@@ -358,29 +358,29 @@ export default function AdminKnowledgePage() {
         </div>
 
         {bulk.running || bulk.done > 0 ? (
-          <div className="rounded border border-neutral-800 bg-neutral-950 p-3">
-            <div className="mb-2 flex items-center justify-between text-xs text-neutral-400">
+          <div className="rounded border border-hairline bg-canvas p-3">
+            <div className="mb-2 flex items-center justify-between text-xs text-muted-ink">
               <span>
                 완료 {bulk.done} / {bulk.total}
                 {" · "}성공 {bulk.ok}
                 {bulk.failed > 0 ? ` · 실패 ${bulk.failed}` : ""}
               </span>
               {bulk.total > 0 ? (
-                <span className="text-neutral-500">
+                <span className="text-muted-ink">
                   {Math.round((bulk.done / bulk.total) * 100)}%
                 </span>
               ) : null}
             </div>
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-neutral-900">
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-card">
               <div
-                className="h-full bg-violet-500 transition-all"
+                className="h-full bg-coral transition-all"
                 style={{
                   width: `${bulk.total > 0 ? Math.round((bulk.done / bulk.total) * 100) : 0}%`,
                 }}
               />
             </div>
             {bulk.failedSamples.length > 0 ? (
-              <ul className="mt-2 space-y-1 text-[11px] text-red-300">
+              <ul className="mt-2 space-y-1 text-[11px] text-error">
                 {bulk.failedSamples.map((s, i) => (
                   <li key={i}>· {s}</li>
                 ))}
@@ -390,17 +390,17 @@ export default function AdminKnowledgePage() {
         ) : null}
       </section>
 
-      <section className="mb-10 rounded-lg border border-neutral-800 bg-neutral-950 p-5">
-        <h2 className="mb-3 text-sm font-semibold text-neutral-200">
+      <section className="mb-10 rounded-lg border border-hairline bg-canvas p-5">
+        <h2 className="mb-3 text-sm font-semibold text-ink">
           문서 추가
         </h2>
         <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
           <label className="block">
-            <span className="mb-1 block text-xs text-neutral-400">분류</span>
+            <span className="mb-1 block text-xs text-muted-ink">분류</span>
             <select
               value={sourceType}
               onChange={(e) => setSourceType(e.target.value)}
-              className="w-full rounded-md border border-neutral-700 bg-neutral-950 px-3 py-2 text-sm outline-none focus:border-violet-500"
+              className="w-full rounded-md border border-hairline bg-canvas px-3 py-2 text-sm outline-none focus:border-coral"
             >
               {SOURCE_TYPES.map((s) => (
                 <option key={s.value} value={s.value}>
@@ -410,17 +410,17 @@ export default function AdminKnowledgePage() {
             </select>
           </label>
           <label className="block md:col-span-2">
-            <span className="mb-1 block text-xs text-neutral-400">제목</span>
+            <span className="mb-1 block text-xs text-muted-ink">제목</span>
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="예) 다운독 안전 가이드"
-              className="w-full rounded-md border border-neutral-700 bg-neutral-950 px-3 py-2 text-sm placeholder-neutral-600 outline-none focus:border-violet-500"
+              className="w-full rounded-md border border-hairline bg-canvas px-3 py-2 text-sm placeholder-muted-soft outline-none focus:border-coral"
             />
           </label>
         </div>
         <label className="mt-3 block">
-          <span className="mb-1 block text-xs text-neutral-400">
+          <span className="mb-1 block text-xs text-muted-ink">
             본문 (최대 8000자)
           </span>
           <textarea
@@ -428,9 +428,9 @@ export default function AdminKnowledgePage() {
             onChange={(e) => setContent(e.target.value)}
             placeholder="검색에 사용할 본문을 그대로 입력하세요. 한국어 권장."
             rows={8}
-            className="w-full rounded-md border border-neutral-700 bg-neutral-950 px-3 py-2 text-sm placeholder-neutral-600 outline-none focus:border-violet-500"
+            className="w-full rounded-md border border-hairline bg-canvas px-3 py-2 text-sm placeholder-muted-soft outline-none focus:border-coral"
           />
-          <span className="mt-1 block text-[11px] text-neutral-600">
+          <span className="mt-1 block text-[11px] text-muted-soft">
             {content.length}/8000
           </span>
         </label>
@@ -440,8 +440,8 @@ export default function AdminKnowledgePage() {
               className={
                 "text-xs " +
                 (feedback.startsWith("✓")
-                  ? "text-emerald-300"
-                  : "text-red-300")
+                  ? "text-success"
+                  : "text-error")
               }
             >
               {feedback}
@@ -452,7 +452,7 @@ export default function AdminKnowledgePage() {
           <button
             onClick={handleIngest}
             disabled={submitting || !title.trim() || !content.trim()}
-            className="rounded-md bg-violet-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-violet-500 disabled:opacity-40"
+            className="rounded-md bg-coral px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-coral-active disabled:opacity-40"
           >
             {submitting ? "임베딩 + 저장 중…" : "저장 + 임베딩"}
           </button>
@@ -462,10 +462,10 @@ export default function AdminKnowledgePage() {
       <section>
         <div className="mb-3 flex items-end justify-between gap-3">
           <div>
-            <h2 className="text-sm font-semibold text-neutral-200">
+            <h2 className="text-sm font-semibold text-ink">
               저장된 문서 ({docs.length})
             </h2>
-            <p className="text-[11px] text-neutral-500">
+            <p className="text-[11px] text-muted-ink">
               제목·본문·분류 검색.
             </p>
           </div>
@@ -473,13 +473,13 @@ export default function AdminKnowledgePage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="검색…"
-            className="w-60 rounded-md border border-neutral-700 bg-neutral-950 px-3 py-1.5 text-sm placeholder-neutral-600 outline-none focus:border-violet-500"
+            className="w-60 rounded-md border border-hairline bg-canvas px-3 py-1.5 text-sm placeholder-muted-soft outline-none focus:border-coral"
           />
         </div>
 
-        <div className="overflow-hidden rounded-lg border border-neutral-800">
+        <div className="overflow-hidden rounded-lg border border-hairline">
           <table className="w-full text-sm">
-            <thead className="bg-neutral-900/60 text-left text-[11px] uppercase tracking-wider text-neutral-500">
+            <thead className="bg-surface-soft text-left text-[11px] uppercase tracking-wider text-muted-ink">
               <tr>
                 <th className="px-4 py-2.5">제목</th>
                 <th className="px-4 py-2.5">분류</th>
@@ -490,14 +490,14 @@ export default function AdminKnowledgePage() {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={4} className="px-4 py-8 text-center text-neutral-500">
+                  <td colSpan={4} className="px-4 py-8 text-center text-muted-ink">
                     불러오는 중…
                   </td>
                 </tr>
               ) : null}
               {!loading && filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-4 py-8 text-center text-neutral-500">
+                  <td colSpan={4} className="px-4 py-8 text-center text-muted-ink">
                     아직 문서가 없어요. 위에서 첫 문서를 추가하세요.
                   </td>
                 </tr>
@@ -505,27 +505,27 @@ export default function AdminKnowledgePage() {
               {filtered.map((d) => (
                 <tr
                   key={d.id}
-                  className="border-t border-neutral-800 transition hover:bg-neutral-900/50"
+                  className="border-t border-hairline transition hover:bg-surface-soft"
                 >
                   <td className="px-4 py-3 align-top">
-                    <p className="font-medium text-neutral-100">{d.title}</p>
-                    <p className="mt-1 max-w-xl truncate text-[11px] text-neutral-500">
+                    <p className="font-medium text-ink">{d.title}</p>
+                    <p className="mt-1 max-w-xl truncate text-[11px] text-muted-ink">
                       {d.content}
                     </p>
                   </td>
                   <td className="px-4 py-3 align-top">
-                    <span className="inline-flex items-center rounded-md border border-neutral-700 bg-neutral-900 px-2 py-0.5 text-[11px] text-neutral-300">
+                    <span className="inline-flex items-center rounded-md border border-hairline bg-surface-card px-2 py-0.5 text-[11px] text-body">
                       {d.source_type}
                     </span>
                   </td>
-                  <td className="px-4 py-3 align-top text-neutral-400">
+                  <td className="px-4 py-3 align-top text-muted-ink">
                     {d.created_at.slice(0, 10)}
                   </td>
                   <td className="px-4 py-3 text-right align-top">
                     <button
                       onClick={() => handleDelete(d.id)}
                       disabled={busy === d.id}
-                      className="rounded-md border border-red-900/60 px-2.5 py-1 text-[11px] text-red-300 transition hover:bg-red-950/40 disabled:opacity-40"
+                      className="rounded-md border border-error/40 px-2.5 py-1 text-[11px] text-error transition hover:bg-error/10 disabled:opacity-40"
                     >
                       {busy === d.id ? "삭제 중…" : "삭제"}
                     </button>

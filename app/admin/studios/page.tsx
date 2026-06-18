@@ -196,24 +196,24 @@ export default function AdminStudiosPage() {
     <AdminShell>
       <header className="mb-8 flex items-end justify-between gap-4">
         <div>
-          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-muted-ink">
             요가원
           </p>
-          <h1 className="text-2xl font-semibold tracking-tight">요가원 관리</h1>
-          <p className="mt-1 text-sm text-neutral-400">
+          <h1 className="font-display text-3xl font-semibold tracking-tight">요가원 관리</h1>
+          <p className="mt-1 text-sm text-muted-ink">
             등록 신청은 자동 승인되며, 의심스러운 요가원만 여기서 정지·삭제하세요.
           </p>
         </div>
         <button
           onClick={load}
-          className="rounded-md border border-neutral-700 px-3 py-1.5 text-xs text-neutral-300 transition hover:bg-neutral-800"
+          className="rounded-md border border-hairline px-3 py-1.5 text-xs text-body transition hover:bg-surface-strong"
         >
           새로고침
         </button>
       </header>
 
       {error ? (
-        <div className="mb-6 rounded-md border border-red-900/50 bg-red-950/40 px-3 py-2 text-xs text-red-300">
+        <div className="mb-6 rounded-md border border-error/30 bg-error/10 px-3 py-2 text-xs text-error">
           {error}
         </div>
       ) : null}
@@ -221,10 +221,10 @@ export default function AdminStudiosPage() {
       <section className="mb-10">
         <div className="mb-3 flex items-end justify-between gap-3">
           <div>
-            <h2 className="text-sm font-semibold text-neutral-200">
+            <h2 className="text-sm font-semibold text-ink">
               신청 ({filteredApplications.length} / 전체 {applications.length})
             </h2>
-            <p className="text-[11px] text-neutral-500">
+            <p className="text-[11px] text-muted-ink">
               자동승인 후에도 의심스러운 곳은 정지해서 스튜디오를 삭제하세요.
             </p>
           </div>
@@ -242,19 +242,19 @@ export default function AdminStudiosPage() {
                   className={
                     "rounded-md border px-2.5 py-1 text-xs transition " +
                     (active
-                      ? "border-violet-500 bg-violet-600/20 text-violet-200"
-                      : "border-neutral-700 text-neutral-400 hover:bg-neutral-800")
+                      ? "border-coral bg-coral/12 text-coral-active"
+                      : "border-hairline text-muted-ink hover:bg-surface-strong")
                   }
                 >
-                  {f.label} {count > 0 ? <span className="ml-1 text-[10px] text-neutral-500">{count}</span> : null}
+                  {f.label} {count > 0 ? <span className="ml-1 text-[10px] text-muted-ink">{count}</span> : null}
                 </button>
               );
             })}
           </div>
         </div>
-        <div className="overflow-hidden rounded-lg border border-neutral-800">
+        <div className="overflow-hidden rounded-lg border border-hairline">
           <table className="w-full text-sm">
-            <thead className="bg-neutral-900/60 text-left text-[11px] uppercase tracking-wider text-neutral-500">
+            <thead className="bg-surface-soft text-left text-[11px] uppercase tracking-wider text-muted-ink">
               <tr>
                 <th className="px-4 py-2.5">상호명</th>
                 <th className="px-4 py-2.5">신청자</th>
@@ -270,7 +270,7 @@ export default function AdminStudiosPage() {
                 <tr>
                   <td
                     colSpan={7}
-                    className="px-4 py-6 text-center text-neutral-500"
+                    className="px-4 py-6 text-center text-muted-ink"
                   >
                     {statusFilter === "all"
                       ? "아직 신청이 없어요."
@@ -283,32 +283,32 @@ export default function AdminStudiosPage() {
                 return (
                   <tr
                     key={a.id}
-                    className="border-t border-neutral-800 transition hover:bg-neutral-900/50"
+                    className="border-t border-hairline transition hover:bg-surface-soft"
                   >
                     <td className="px-4 py-3 align-top">
-                      <p className="font-medium text-neutral-100">{a.name}</p>
+                      <p className="font-medium text-ink">{a.name}</p>
                       {a.description ? (
-                        <p className="mt-1 max-w-xs truncate text-[11px] text-neutral-500">
+                        <p className="mt-1 max-w-xs truncate text-[11px] text-muted-ink">
                           {a.description}
                         </p>
                       ) : null}
                     </td>
                     <td className="px-4 py-3 align-top">
-                      <p className="text-neutral-200">{ap?.name ?? "—"}</p>
-                      <p className="mt-1 text-[11px] text-neutral-500">
+                      <p className="text-ink">{ap?.name ?? "—"}</p>
+                      <p className="mt-1 text-[11px] text-muted-ink">
                         {ap?.phone ?? a.applicant_user_id.slice(0, 8)}
                       </p>
                     </td>
-                    <td className="px-4 py-3 align-top text-neutral-300">
+                    <td className="px-4 py-3 align-top text-body">
                       <p>{a.location ?? "—"}</p>
-                      <p className="mt-1 text-[11px] text-neutral-500">
+                      <p className="mt-1 text-[11px] text-muted-ink">
                         {a.phone ?? "—"}
                       </p>
                     </td>
                     <td className="px-4 py-3 align-top">
                       <StatusBadge status={a.status} />
                     </td>
-                    <td className="px-4 py-3 align-top text-neutral-300">
+                    <td className="px-4 py-3 align-top text-body">
                       {noteOpenFor === a.id ? (
                         <textarea
                           autoFocus
@@ -316,17 +316,17 @@ export default function AdminStudiosPage() {
                           onChange={(e) => setNoteDraft(e.target.value)}
                           placeholder="정지 사유"
                           rows={2}
-                          className="w-44 rounded-md border border-neutral-700 bg-neutral-950 px-2 py-1 text-xs placeholder-neutral-600 outline-none focus:border-violet-500"
+                          className="w-44 rounded-md border border-hairline bg-canvas px-2 py-1 text-xs placeholder-muted-soft outline-none focus:border-coral"
                         />
                       ) : a.review_note ? (
-                        <p className="max-w-xs whitespace-pre-wrap text-xs text-neutral-400">
+                        <p className="max-w-xs whitespace-pre-wrap text-xs text-muted-ink">
                           {a.review_note}
                         </p>
                       ) : (
-                        <span className="text-[11px] text-neutral-600">—</span>
+                        <span className="text-[11px] text-muted-soft">—</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 align-top text-neutral-400">
+                    <td className="px-4 py-3 align-top text-muted-ink">
                       {a.created_at.slice(0, 10)}
                     </td>
                     <td className="px-4 py-3 text-right align-top">
@@ -339,14 +339,14 @@ export default function AdminStudiosPage() {
                                 setNoteDraft("");
                               }}
                               disabled={busyId === a.id}
-                              className="rounded-md border border-neutral-700 px-2.5 py-1 text-[11px] text-neutral-300 transition hover:bg-neutral-800"
+                              className="rounded-md border border-hairline px-2.5 py-1 text-[11px] text-body transition hover:bg-surface-strong"
                             >
                               취소
                             </button>
                             <button
                               onClick={() => handleSuspend(a.id, noteDraft)}
                               disabled={busyId === a.id}
-                              className="rounded-md border border-red-900/60 bg-red-950/40 px-2.5 py-1 text-[11px] text-red-300 transition hover:bg-red-900/40 disabled:opacity-40"
+                              className="rounded-md border border-error/40 bg-error/10 px-2.5 py-1 text-[11px] text-error transition hover:bg-error/10 disabled:opacity-40"
                             >
                               {busyId === a.id ? "처리 중…" : "정지 확정"}
                             </button>
@@ -357,7 +357,7 @@ export default function AdminStudiosPage() {
                               setNoteOpenFor(a.id);
                               setNoteDraft(a.review_note ?? "");
                             }}
-                            className="rounded-md border border-red-900/60 px-2.5 py-1 text-[11px] text-red-300 transition hover:bg-red-950/40"
+                            className="rounded-md border border-error/40 px-2.5 py-1 text-[11px] text-error transition hover:bg-error/10"
                           >
                             정지 + 삭제
                           </button>
@@ -375,10 +375,10 @@ export default function AdminStudiosPage() {
       <section>
         <div className="mb-3 flex items-end justify-between gap-3">
           <div>
-            <h2 className="text-sm font-semibold text-neutral-200">
+            <h2 className="text-sm font-semibold text-ink">
               전체 요가원 ({studios.length})
             </h2>
-            <p className="text-[11px] text-neutral-500">
+            <p className="text-[11px] text-muted-ink">
               생성된 모든 스튜디오. 이름·주소·전화·원장 전화로 검색할 수 있어요.
             </p>
           </div>
@@ -386,13 +386,13 @@ export default function AdminStudiosPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="검색…"
-            className="w-60 rounded-md border border-neutral-700 bg-neutral-950 px-3 py-1.5 text-sm placeholder-neutral-600 outline-none focus:border-violet-500"
+            className="w-60 rounded-md border border-hairline bg-canvas px-3 py-1.5 text-sm placeholder-muted-soft outline-none focus:border-coral"
           />
         </div>
 
-        <div className="overflow-hidden rounded-lg border border-neutral-800">
+        <div className="overflow-hidden rounded-lg border border-hairline">
           <table className="w-full text-sm">
-            <thead className="bg-neutral-900/60 text-left text-[11px] uppercase tracking-wider text-neutral-500">
+            <thead className="bg-surface-soft text-left text-[11px] uppercase tracking-wider text-muted-ink">
               <tr>
                 <th className="px-4 py-2.5">상호명</th>
                 <th className="px-4 py-2.5">원장</th>
@@ -408,7 +408,7 @@ export default function AdminStudiosPage() {
                 <tr>
                   <td
                     colSpan={7}
-                    className="px-4 py-8 text-center text-neutral-500"
+                    className="px-4 py-8 text-center text-muted-ink"
                   >
                     불러오는 중…
                   </td>
@@ -418,7 +418,7 @@ export default function AdminStudiosPage() {
                 <tr>
                   <td
                     colSpan={7}
-                    className="px-4 py-8 text-center text-neutral-500"
+                    className="px-4 py-8 text-center text-muted-ink"
                   >
                     조건에 맞는 요가원이 없어요.
                   </td>
@@ -429,29 +429,29 @@ export default function AdminStudiosPage() {
                 return (
                   <tr
                     key={s.id}
-                    className="border-t border-neutral-800 transition hover:bg-neutral-900/50"
+                    className="border-t border-hairline transition hover:bg-surface-soft"
                   >
                     <td className="px-4 py-3 align-top">
-                      <p className="font-medium text-neutral-100">{s.name}</p>
+                      <p className="font-medium text-ink">{s.name}</p>
                       {s.description ? (
-                        <p className="mt-1 max-w-xs truncate text-[11px] text-neutral-500">
+                        <p className="mt-1 max-w-xs truncate text-[11px] text-muted-ink">
                           {s.description}
                         </p>
                       ) : null}
                     </td>
                     <td className="px-4 py-3 align-top">
-                      <p className="text-neutral-200">{owner?.name ?? "—"}</p>
-                      <p className="mt-1 text-[11px] text-neutral-500">
+                      <p className="text-ink">{owner?.name ?? "—"}</p>
+                      <p className="mt-1 text-[11px] text-muted-ink">
                         {owner?.phone ?? s.owner_id.slice(0, 8)}
                       </p>
                     </td>
-                    <td className="px-4 py-3 align-top text-neutral-300">
+                    <td className="px-4 py-3 align-top text-body">
                       <p>{s.location ?? "—"}</p>
-                      <p className="mt-1 text-[11px] text-neutral-500">
+                      <p className="mt-1 text-[11px] text-muted-ink">
                         {s.phone ?? "—"}
                       </p>
                     </td>
-                    <td className="px-4 py-3 align-top text-neutral-400">
+                    <td className="px-4 py-3 align-top text-muted-ink">
                       {s.hours_text ?? "—"}
                     </td>
                     <td className="px-4 py-3 align-top">
@@ -460,22 +460,22 @@ export default function AdminStudiosPage() {
                           href={s.website_url}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-xs text-violet-400 underline-offset-2 hover:underline"
+                          className="text-xs text-coral-active underline-offset-2 hover:underline"
                         >
                           링크
                         </a>
                       ) : (
-                        <span className="text-neutral-600">—</span>
+                        <span className="text-muted-soft">—</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 align-top text-neutral-400">
+                    <td className="px-4 py-3 align-top text-muted-ink">
                       {s.created_at.slice(0, 10)}
                     </td>
                     <td className="px-4 py-3 text-right align-top">
                       <button
                         onClick={() => handleDeleteStudio(s.id)}
                         disabled={busyId === s.id}
-                        className="rounded-md border border-red-900/60 px-2.5 py-1 text-[11px] text-red-300 transition hover:bg-red-950/40 disabled:opacity-40"
+                        className="rounded-md border border-error/40 px-2.5 py-1 text-[11px] text-error transition hover:bg-error/10 disabled:opacity-40"
                       >
                         {busyId === s.id ? "삭제 중…" : "삭제"}
                       </button>
@@ -495,23 +495,23 @@ function StatusBadge({ status }: { status: ApplicationStatus }) {
   const map: Record<ApplicationStatus, { label: string; cls: string }> = {
     pending: {
       label: "pending",
-      cls: "border-amber-700/60 bg-amber-900/30 text-amber-200",
+      cls: "border-warning/40 bg-warning/15 text-warning",
     },
     auto_approved: {
       label: "자동승인",
-      cls: "border-emerald-800/60 bg-emerald-900/30 text-emerald-200",
+      cls: "border-success/30 bg-success/12 text-success",
     },
     approved: {
       label: "승인",
-      cls: "border-emerald-800/60 bg-emerald-900/30 text-emerald-200",
+      cls: "border-success/30 bg-success/12 text-success",
     },
     rejected: {
       label: "반려",
-      cls: "border-neutral-700 bg-neutral-900 text-neutral-400",
+      cls: "border-hairline bg-surface-card text-muted-ink",
     },
     suspended: {
       label: "정지",
-      cls: "border-red-900/60 bg-red-950/40 text-red-300",
+      cls: "border-error/40 bg-error/10 text-error",
     },
   };
   const m = map[status];

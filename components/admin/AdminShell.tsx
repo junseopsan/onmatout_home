@@ -47,7 +47,7 @@ export function AdminShell({ children }: AdminShellProps) {
 
   if (!authChecked) {
     return (
-      <div className="flex h-screen items-center justify-center text-sm text-neutral-500">
+      <div className="flex h-screen items-center justify-center text-sm text-muted-ink">
         잠시만요…
       </div>
     );
@@ -63,12 +63,12 @@ export function AdminShell({ children }: AdminShellProps) {
   return (
     <BoCtx.Provider value={ctx}>
       <div className="flex min-h-screen">
-        <aside className="hidden w-60 shrink-0 border-r border-neutral-800 bg-neutral-950 p-5 md:flex md:flex-col">
+        <aside className="hidden w-60 shrink-0 border-r border-hairline bg-surface-soft p-5 md:flex md:flex-col">
           <div className="mb-6">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-500">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-coral-active">
               ONMATOUT
             </p>
-            <p className="text-base font-semibold tracking-tight">
+            <p className="font-display text-xl font-semibold tracking-tight text-ink">
               {ctx.role === "super_admin" ? "어드민" : "요가원 관리"}
             </p>
           </div>
@@ -82,8 +82,8 @@ export function AdminShell({ children }: AdminShellProps) {
                   className={
                     "block rounded-md px-3 py-2 text-sm transition " +
                     (active
-                      ? "bg-violet-600/20 text-violet-200"
-                      : "text-neutral-300 hover:bg-neutral-800/60")
+                      ? "bg-coral/12 text-coral-active"
+                      : "text-body hover:bg-surface-strong")
                   }
                 >
                   {n.label}
@@ -96,20 +96,20 @@ export function AdminShell({ children }: AdminShellProps) {
               className={
                 "inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-medium " +
                 (ctx.role === "super_admin"
-                  ? "border-violet-800/60 bg-violet-900/30 text-violet-200"
-                  : "border-sky-800/60 bg-sky-900/30 text-sky-200")
+                  ? "border-coral/40 bg-coral/12 text-coral-active"
+                  : "border-accent-teal/40 bg-accent-teal/15 text-accent-teal")
               }
             >
               {ctx.role === "super_admin" ? "수퍼관리자" : "원장"}
             </span>
             {ctx.identifier ? (
-              <p className="break-all text-[11px] text-neutral-500">
+              <p className="break-all text-[11px] text-muted-ink">
                 {ctx.identifier}
               </p>
             ) : null}
             <button
               onClick={handleSignOut}
-              className="w-full rounded-md border border-neutral-700 px-3 py-2 text-xs text-neutral-300 transition hover:bg-neutral-800"
+              className="w-full rounded-md border border-hairline px-3 py-2 text-xs text-body transition hover:bg-surface-strong"
             >
               로그아웃
             </button>
@@ -120,17 +120,17 @@ export function AdminShell({ children }: AdminShellProps) {
           {hasAccess ? (
             children
           ) : (
-            <div className="mx-auto max-w-md rounded-lg border border-neutral-800 bg-neutral-900/30 p-8 text-center">
-              <p className="text-lg font-semibold text-neutral-100">
+            <div className="mx-auto max-w-md rounded-lg border border-hairline bg-surface-soft p-8 text-center">
+              <p className="text-lg font-semibold text-ink">
                 접근 권한이 없습니다
               </p>
-              <p className="mt-2 text-sm text-neutral-400">
+              <p className="mt-2 text-sm text-muted-ink">
                 이 메뉴에 대한 권한이 없어요. 권한이 필요하면 관리자에게 문의하세요.
               </p>
               {firstMenu ? (
                 <Link
                   href={firstMenu.href}
-                  className="mt-4 inline-block rounded-md border border-violet-700/60 bg-violet-600/20 px-4 py-2 text-sm text-violet-200 transition hover:bg-violet-600/30"
+                  className="mt-4 inline-block rounded-md border border-coral/40 bg-coral/12 px-4 py-2 text-sm text-coral-active transition hover:bg-coral/20"
                 >
                   {firstMenu.label}(으)로 이동
                 </Link>
