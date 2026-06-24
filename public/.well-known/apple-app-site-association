@@ -4,7 +4,7 @@
     "details": [
       {
         "appID": "C4BKFBL34U.com.onmatout.app",
-        "paths": ["/a/*"]
+        "paths": ["/a/*", "/r/*"]
       }
     ]
   }

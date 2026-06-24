@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // 좌하단 Next.js 개발 인디케이터("N" 배지) 숨김
+  devIndicators: false,
   eslint: {
     ignoreDuringBuilds: true,
   },

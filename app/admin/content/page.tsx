@@ -200,27 +200,27 @@ export default function AdminContentPage() {
     <AdminShell>
       <header className="mb-8 flex items-end justify-between gap-4">
         <div>
-          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+          <p className="mb-1 text-[11px] uppercase tracking-[0.18em] text-muted-ink">
             콘텐츠
           </p>
-          <h1 className="text-2xl font-semibold tracking-tight">콘텐츠 모더레이션</h1>
-          <p className="mt-1 text-sm text-neutral-400">
+          <h1 className="font-display text-3xl font-semibold tracking-tight">콘텐츠 모더레이션</h1>
+          <p className="mt-1 text-sm text-muted-ink">
             피드(수련 기록·댓글)를 조회하고, 문제되는 콘텐츠를 숨길 수 있어요.
             {hiddenCount > 0 ? (
-              <span className="ml-2 text-red-300">현재 탭 숨김 {hiddenCount}건</span>
+              <span className="ml-2 text-error">현재 탭 숨김 {hiddenCount}건</span>
             ) : null}
           </p>
         </div>
         <button
           onClick={load}
-          className="rounded-md border border-neutral-700 px-3 py-1.5 text-xs text-neutral-300 transition hover:bg-neutral-800"
+          className="rounded-md border border-hairline px-3 py-1.5 text-xs text-body transition hover:bg-surface-strong"
         >
           새로고침
         </button>
       </header>
 
       {error ? (
-        <div className="mb-6 rounded-md border border-red-900/50 bg-red-950/40 px-3 py-2 text-xs text-red-300">
+        <div className="mb-6 rounded-md border border-error/30 bg-error/10 px-3 py-2 text-xs text-error">
           {error}
         </div>
       ) : null}
@@ -243,8 +243,8 @@ export default function AdminContentPage() {
               className={
                 "rounded-md border px-3 py-1.5 text-sm transition " +
                 (tab === t.value
-                  ? "border-violet-500 bg-violet-600/20 text-violet-200"
-                  : "border-neutral-700 text-neutral-400 hover:bg-neutral-800")
+                  ? "border-coral bg-coral/12 text-coral-active"
+                  : "border-hairline text-muted-ink hover:bg-surface-strong")
               }
             >
               {t.label}
@@ -260,8 +260,8 @@ export default function AdminContentPage() {
                 className={
                   "rounded-md border px-2.5 py-1 text-xs transition " +
                   (statusFilter === f.value
-                    ? "border-violet-500 bg-violet-600/20 text-violet-200"
-                    : "border-neutral-700 text-neutral-400 hover:bg-neutral-800")
+                    ? "border-coral bg-coral/12 text-coral-active"
+                    : "border-hairline text-muted-ink hover:bg-surface-strong")
                 }
               >
                 {f.label}
@@ -272,14 +272,14 @@ export default function AdminContentPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="내용·작성자 검색…"
-            className="w-56 rounded-md border border-neutral-700 bg-neutral-950 px-3 py-1.5 text-sm placeholder-neutral-600 outline-none focus:border-violet-500"
+            className="w-56 rounded-md border border-hairline bg-canvas px-3 py-1.5 text-sm placeholder-muted-soft outline-none focus:border-coral"
           />
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-neutral-800">
+      <div className="overflow-hidden rounded-lg border border-hairline">
         <table className="w-full text-sm">
-          <thead className="bg-neutral-900/60 text-left text-[11px] uppercase tracking-wider text-neutral-500">
+          <thead className="bg-surface-soft text-left text-[11px] uppercase tracking-wider text-muted-ink">
             <tr>
               <th className="px-4 py-2.5">작성자</th>
               <th className="px-4 py-2.5">{tab === "records" ? "제목·메모" : "댓글 내용"}</th>
@@ -292,7 +292,7 @@ export default function AdminContentPage() {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-neutral-500">
+                <td colSpan={6} className="px-4 py-8 text-center text-muted-ink">
                   불러오는 중…
                 </td>
               </tr>
@@ -300,14 +300,14 @@ export default function AdminContentPage() {
 
             {!loading && tab === "records" && filteredRecords.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-neutral-500">
+                <td colSpan={6} className="px-4 py-8 text-center text-muted-ink">
                   조건에 맞는 기록이 없어요.
                 </td>
               </tr>
             ) : null}
             {!loading && tab === "comments" && filteredComments.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-neutral-500">
+                <td colSpan={6} className="px-4 py-8 text-center text-muted-ink">
                   조건에 맞는 댓글이 없어요.
                 </td>
               </tr>
@@ -376,12 +376,12 @@ export default function AdminContentPage() {
           </tbody>
         </table>
         {(tab === "records" ? records.length : comments.length) >= LIMIT ? (
-          <p className="border-t border-neutral-800 px-4 py-2 text-[11px] text-neutral-500">
+          <p className="border-t border-hairline px-4 py-2 text-[11px] text-muted-ink">
             최근 {LIMIT}건만 표시합니다.
           </p>
         ) : null}
       </div>
-      <p className="mt-3 text-[11px] text-neutral-600">
+      <p className="mt-3 text-[11px] text-muted-soft">
         ※ 숨김은 soft-hide(hidden_at)로 기록되며 데이터는 보존됩니다. 앱 피드에서 실제로
         가려지려면 앱 조회 쿼리에 hidden_at IS NULL 조건이 필요합니다.
       </p>
@@ -409,38 +409,38 @@ function ContentRow(props: {
 }) {
   const hidden = !!props.hiddenAt;
   return (
-    <tr className="border-t border-neutral-800 align-top transition hover:bg-neutral-900/50">
-      <td className="px-4 py-3 text-neutral-200">{props.author}</td>
+    <tr className="border-t border-hairline align-top transition hover:bg-surface-soft">
+      <td className="px-4 py-3 text-ink">{props.author}</td>
       <td className="px-4 py-3">
-        <p className={"font-medium " + (hidden ? "text-neutral-500 line-through" : "text-neutral-100")}>
+        <p className={"font-medium " + (hidden ? "text-muted-ink line-through" : "text-ink")}>
           {props.primary}
         </p>
         {props.secondary ? (
-          <p className="mt-1 max-w-md truncate text-[11px] text-neutral-500">
+          <p className="mt-1 max-w-md truncate text-[11px] text-muted-ink">
             {props.secondary}
           </p>
         ) : null}
       </td>
-      <td className="px-4 py-3 text-[11px] text-neutral-500">{props.meta}</td>
+      <td className="px-4 py-3 text-[11px] text-muted-ink">{props.meta}</td>
       <td className="px-4 py-3">
         {hidden ? (
           <div>
-            <span className="inline-flex items-center rounded-md border border-red-900/60 bg-red-950/40 px-2 py-0.5 text-[11px] font-medium text-red-300">
+            <span className="inline-flex items-center rounded-md border border-error/40 bg-error/10 px-2 py-0.5 text-[11px] font-medium text-error">
               숨김
             </span>
             {props.hiddenReason ? (
-              <p className="mt-1 max-w-[10rem] truncate text-[11px] text-neutral-500">
+              <p className="mt-1 max-w-[10rem] truncate text-[11px] text-muted-ink">
                 {props.hiddenReason}
               </p>
             ) : null}
           </div>
         ) : (
-          <span className="inline-flex items-center rounded-md border border-emerald-800/60 bg-emerald-900/30 px-2 py-0.5 text-[11px] font-medium text-emerald-200">
+          <span className="inline-flex items-center rounded-md border border-success/30 bg-success/12 px-2 py-0.5 text-[11px] font-medium text-success">
             노출
           </span>
         )}
       </td>
-      <td className="px-4 py-3 text-neutral-400">{props.date || "—"}</td>
+      <td className="px-4 py-3 text-muted-ink">{props.date || "—"}</td>
       <td className="px-4 py-3 text-right">
         {props.hideOpen ? (
           <div className="flex flex-col items-end gap-2">
@@ -450,20 +450,20 @@ function ContentRow(props: {
               onChange={(e) => props.onHideReasonChange(e.target.value)}
               placeholder="숨김 사유(선택)"
               rows={2}
-              className="w-44 rounded-md border border-neutral-700 bg-neutral-950 px-2 py-1 text-xs placeholder-neutral-600 outline-none focus:border-violet-500"
+              className="w-44 rounded-md border border-hairline bg-canvas px-2 py-1 text-xs placeholder-muted-soft outline-none focus:border-coral"
             />
             <div className="flex gap-2">
               <button
                 onClick={props.onCancelHide}
                 disabled={props.busy}
-                className="rounded-md border border-neutral-700 px-2.5 py-1 text-[11px] text-neutral-300 transition hover:bg-neutral-800"
+                className="rounded-md border border-hairline px-2.5 py-1 text-[11px] text-body transition hover:bg-surface-strong"
               >
                 취소
               </button>
               <button
                 onClick={props.onHide}
                 disabled={props.busy}
-                className="rounded-md border border-red-900/60 bg-red-950/40 px-2.5 py-1 text-[11px] text-red-300 transition hover:bg-red-900/40 disabled:opacity-40"
+                className="rounded-md border border-error/40 bg-error/10 px-2.5 py-1 text-[11px] text-error transition hover:bg-error/10 disabled:opacity-40"
               >
                 {props.busy ? "처리 중…" : "숨김 확정"}
               </button>
@@ -473,7 +473,7 @@ function ContentRow(props: {
           <button
             onClick={props.onUnhide}
             disabled={props.busy}
-            className="rounded-md border border-emerald-800/60 px-2.5 py-1 text-[11px] text-emerald-300 transition hover:bg-emerald-950/40 disabled:opacity-40"
+            className="rounded-md border border-success/30 px-2.5 py-1 text-[11px] text-success transition hover:bg-success/12 disabled:opacity-40"
           >
             {props.busy ? "처리 중…" : "숨김 해제"}
           </button>
@@ -481,7 +481,7 @@ function ContentRow(props: {
           <button
             onClick={props.onOpenHide}
             disabled={props.busy}
-            className="rounded-md border border-red-900/60 px-2.5 py-1 text-[11px] text-red-300 transition hover:bg-red-950/40 disabled:opacity-40"
+            className="rounded-md border border-error/40 px-2.5 py-1 text-[11px] text-error transition hover:bg-error/10 disabled:opacity-40"
           >
             숨김
           </button>
