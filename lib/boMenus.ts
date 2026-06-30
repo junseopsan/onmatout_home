@@ -14,7 +14,10 @@ export type MenuKey =
   | "knowledge"
   | "ai-ops"
   | "content"
-  | "asanas";
+  | "asanas"
+  | "routines"
+  | "members"
+  | "classes";
 
 export type BoMenu = {
   key: MenuKey;
@@ -31,12 +34,15 @@ const SUPER: BoRole[] = ["super_admin"];
 export const BO_MENUS: BoMenu[] = [
   { key: "dashboard", href: "/admin/dashboard", label: "대시보드", defaultRoles: SUPER },
   { key: "users", href: "/admin/users", label: "사용자 관리", defaultRoles: SUPER },
+  { key: "members", href: "/admin/members", label: "회원 관리", defaultRoles: ALL },
   { key: "members-import", href: "/admin/members-import", label: "회원 일괄등록", defaultRoles: ALL },
+  { key: "classes", href: "/admin/classes", label: "수업 관리", defaultRoles: ALL },
   { key: "permissions", href: "/admin/permissions", label: "권한 관리", defaultRoles: SUPER },
   { key: "support", href: "/admin/support", label: "지원·신고", defaultRoles: SUPER },
   { key: "studios", href: "/admin/studios", label: "요가원 관리", defaultRoles: SUPER },
   { key: "teachers", href: "/admin/teachers", label: "지도자 관리", defaultRoles: ALL },
   { key: "asanas", href: "/admin/asanas", label: "아사나 관리", defaultRoles: SUPER },
+  { key: "routines", href: "/admin/routines", label: "시퀀스 관리", defaultRoles: ALL },
   { key: "knowledge", href: "/admin/knowledge", label: "AI 지식베이스", defaultRoles: SUPER },
   { key: "ai-ops", href: "/admin/ai-ops", label: "AI·앱운영", defaultRoles: SUPER },
   { key: "content", href: "/admin/content", label: "콘텐츠", defaultRoles: SUPER },
