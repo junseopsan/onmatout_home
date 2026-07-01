@@ -61,6 +61,27 @@ function imgSrc(imageNumber: string | null, variant: number) {
   return `/images/asanas/${imageNumber}_${v}.png`;
 }
 
+// 썸네일: 로컬 파일이 없거나 로드 실패하면 "없음" 자리표시로 대체(빈칸/깨짐 방지).
+function Thumb({ src }: { src: string | null }) {
+  const [err, setErr] = useState(false);
+  if (!src || err) {
+    return (
+      <div className="flex h-12 w-12 items-center justify-center rounded border border-hairline text-[10px] text-muted-soft">
+        없음
+      </div>
+    );
+  }
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt=""
+      className="h-12 w-12 rounded border border-hairline bg-neutral-100 object-contain p-0.5"
+      onError={() => setErr(true)}
+    />
+  );
+}
+
 // 단건 아사나를 AI 지식베이스에 ingest (knowledge 페이지와 동일한 yoga-ingest 사용)
 async function ingestAsana(a: {
   id: string;
@@ -126,7 +147,8 @@ export default function AdminAsanasPage() {
           supabase
             .from("asanas")
             .select("*")
-            .order("sanskrit_name_kr", { ascending: true })
+            // 번호(image_number) 순. 001~183 zero-pad 라 문자열 정렬=숫자 정렬.
+            .order("image_number", { ascending: true, nullsFirst: false })
             .limit(PAGE_LIMIT),
           supabase
             .from("asanacategory")
@@ -362,14 +384,18 @@ export default function AdminAsanasPage() {
         />
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-hairline">
-        <table className="w-full text-sm">
-          <thead className="bg-surface-soft text-left text-[11px] uppercase tracking-wider text-muted-ink">
+      <div className="overflow-x-auto rounded-lg border border-hairline">
+        <table className="w-full min-w-[1100px] text-sm">
+          <thead className="bg-surface-soft text-left text-[11px] uppercase tracking-wider text-muted-ink [&_th]:whitespace-nowrap">
             <tr>
+              <th className="px-4 py-2.5">번호</th>
               <th className="px-4 py-2.5">이미지</th>
-              <th className="px-4 py-2.5">이름</th>
+              <th className="px-4 py-2.5">한글명</th>
+              <th className="px-4 py-2.5">영문명</th>
+              <th className="px-4 py-2.5">산스크리트</th>
               <th className="px-4 py-2.5">카테고리</th>
               <th className="px-4 py-2.5">레벨</th>
+              <th className="px-4 py-2.5">뜻</th>
               <th className="px-4 py-2.5">이미지수</th>
               <th className="px-4 py-2.5 text-right">관리</th>
             </tr>
@@ -377,14 +403,14 @@ export default function AdminAsanasPage() {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-muted-ink">
+                <td colSpan={10} className="px-4 py-8 text-center text-muted-ink">
                   불러오는 중…
                 </td>
               </tr>
             ) : null}
             {!loading && filtered.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-muted-ink">
+                <td colSpan={10} className="px-4 py-8 text-center text-muted-ink">
                   조건에 맞는 아사나가 없어요.
                 </td>
               </tr>
@@ -396,51 +422,45 @@ export default function AdminAsanasPage() {
                   key={a.id}
                   className="border-t border-hairline align-middle transition hover:bg-surface-soft"
                 >
-                  <td className="px-4 py-2">
-                    {src ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={src}
-                        alt=""
-                        className="h-12 w-12 rounded border border-hairline bg-neutral-100 object-contain p-0.5"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.visibility =
-                            "hidden";
-                        }}
-                      />
-                    ) : (
-                      <div className="flex h-12 w-12 items-center justify-center rounded border border-hairline text-[10px] text-muted-soft">
-                        없음
-                      </div>
-                    )}
+                  <td className="px-4 py-2 text-muted-ink tabular-nums">
+                    {a.image_number ?? "—"}
                   </td>
                   <td className="px-4 py-2">
-                    <p className="font-medium text-ink">
-                      {a.sanskrit_name_kr}
-                    </p>
-                    <p className="text-[11px] text-muted-ink">
-                      {a.sanskrit_name_en}
-                    </p>
+                    <Thumb src={src} />
+                  </td>
+                  <td className="px-4 py-2 font-medium text-ink">
+                    {a.sanskrit_name_kr}
+                  </td>
+                  <td className="px-4 py-2 text-muted-ink">
+                    {a.sanskrit_name_en}
                   </td>
                   <td className="px-4 py-2 text-body">
+                    {a.sanskrit_name ?? "—"}
+                  </td>
+                  <td className="whitespace-nowrap px-4 py-2 text-body">
                     {catKo(a.category_name_en)}
                   </td>
                   <td className="px-4 py-2 text-muted-ink">{a.level ?? "—"}</td>
                   <td className="px-4 py-2 text-muted-ink">
-                    {a.image_number ? `${a.image_number} · ${a.image_count}장` : "—"}
+                    <span className="line-clamp-2 max-w-[18rem] text-[12px]">
+                      {a.asana_meaning || "—"}
+                    </span>
                   </td>
-                  <td className="px-4 py-2 text-right">
+                  <td className="px-4 py-2 text-muted-ink tabular-nums">
+                    {a.image_count}장
+                  </td>
+                  <td className="whitespace-nowrap px-4 py-2 text-right">
                     <div className="flex justify-end gap-2">
                       <button
                         onClick={() => openEdit(a)}
-                        className="rounded-md border border-coral/40 px-2.5 py-1 text-[11px] text-coral-active transition hover:bg-coral/[0.08]"
+                        className="whitespace-nowrap rounded-md border border-coral/40 px-2.5 py-1 text-[11px] text-coral-active transition hover:bg-coral/[0.08]"
                       >
                         수정
                       </button>
                       <button
                         onClick={() => remove(a)}
                         disabled={busy}
-                        className="rounded-md border border-error/40 px-2.5 py-1 text-[11px] text-error transition hover:bg-error/10 disabled:opacity-40"
+                        className="whitespace-nowrap rounded-md border border-error/40 px-2.5 py-1 text-[11px] text-error transition hover:bg-error/10 disabled:opacity-40"
                       >
                         삭제
                       </button>
